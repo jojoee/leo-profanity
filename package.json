@@ -1,0 +1,65 @@
+{
+  "name": "leo-profanity",
+  "version": "1.0.0",
+  "description": "Profanity filter",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "codecov": "1.0.1",
+    "commitizen": "2.8.5",
+    "cz-conventional-changelog": "1.1.6",
+    "eslint": "^3.16.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.2",
+    "eslint-plugin-standard": "^2.0.1",
+    "ghooks": "1.3.2",
+    "mocha": "3.0.1",
+    "npm-run-all": "2.3.0",
+    "nyc": "7.1.0",
+    "rimraf": "2.5.4",
+    "semantic-release": "^6.3.2"
+  },
+  "engines": {
+    "node": "6.x",
+    "npm": "3.x"
+  },
+  "scripts": {
+    "test": "mocha test/index.spec.js",
+    "commit": "git-cz",
+    "coverage": "nyc --reporter=lcov npm t",
+    "coverage.check": "nyc check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
+    "coverage.report": "cat ./coverage/lcov.info | codecov",
+    "eslint": "eslint src/index.js",
+    "test.watch": "npm t -- --watch",
+    "validate": "npm run eslint && npm run coverage && npm run coverage.check",
+    "setup": "npm install && npm run validate",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jojoee@github.com/jojoee/leo-profanity.git"
+  },
+  "keywords": [
+    "curse",
+    "bad",
+    "profanity",
+    "swear",
+    "dirty",
+    "obscene",
+    "filter",
+    "clean",
+    "word",
+    "words",
+    "string",
+    "list"
+  ],
+  "author": "Nathachai Thongniran <inid3a@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jojoee/leo-profanity/issues"
+  },
+  "homepage": "https://github.com/jojoee/leo-profanity#readme"
+}

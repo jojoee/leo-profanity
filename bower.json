@@ -1,0 +1,31 @@
+{
+  "name": "leo-profanity",
+  "description": "Profanity filter utility",
+  "main": "src/index.js",
+  "authors": [
+    "Nathachai Thongniran <inid3a@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "curse",
+    "bad",
+    "profanity",
+    "swear",
+    "dirty",
+    "obscene",
+    "filter",
+    "clean",
+    "word",
+    "words",
+    "string",
+    "list"
+  ],
+  "homepage": "https://github.com/jojoee/leo-profanity",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

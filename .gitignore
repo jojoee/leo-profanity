@@ -1,0 +1,17 @@
+# Dependency
+node_modules
+bower_components
+
+# IDE or Editor
+.vscode
+
+# Misc
+coverage
+.nyc_output
+yarn.lock
+
+# Backup
+bk*
+
+# Log
+npm-debug.log
