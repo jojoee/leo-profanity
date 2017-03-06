@@ -43,6 +43,12 @@ describe('Profanity filter', function() {
     filter.add(['b@@b', 'b##b']);
     expect(filter.list()).to.include('b@@b');
     expect(filter.list()).to.include('b##b');
+
+    // check duplication
+    // it should remove duplication
+    var numberOfCurrentWords = filter.list().length;
+    filter.add(['b@@b', 'b##b']);
+    expect(filter.list().length).to.equal(numberOfCurrentWords);
   });
 
   it('remove', function() {

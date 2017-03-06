@@ -119,16 +119,23 @@ var LeoProfanity = {
   /**
    * Add word to the list
    *
-   * @todo check existing data before add
+   * @todo update algorithm
+   * @see http://stackoverflow.com/questions/16747798/delete-duplicate-elements-from-an-array
    *
    * @param {string|array} data
    */
   add: function(data) {
+    // add
     if (typeof data === 'string') {
       words.push(data)
     } else if (data.constructor === Array) {
       words = words.concat(data);
     }
+
+    // remove duplication
+    words = words.filter(function(elem, index, self) {
+      return index == self.indexOf(elem);
+    });
 
     return this;
   },
