@@ -22,6 +22,31 @@ var LeoProfanity = {
   },
 
   /**
+   * Return replacement word from key
+   * (private)
+   *
+   * @example
+   * getReplacementWord('*', 3)
+   * return '***'
+   *
+   * @example
+   * getReplacementWord('-', 4)
+   * return '----'
+   *
+   * @returns string
+   */
+  getReplacementWord(key, n) {
+    var i = 0;
+    var replacementWord = '';
+
+    for (i = 0; i < n; i++) {
+      replacementWord += key;
+    }
+
+    return replacementWord;
+  },
+
+  /**
    * Return all profanity words
    *
    * @returns {Array}
@@ -61,14 +86,34 @@ var LeoProfanity = {
   /**
    * Replace profanity words
    *
-   * @todo complete it
+   * @todo update algorithm
    *
    * @param {string} str
-   * @param {string} [replace=*]
+   * @param {string} [replaceKey=*]
    * @returns {string}
    */
-  clean: function(str, replace) {
-    return this;
+  clean: function(str, replaceKey = '*') {
+    if (typeof replaceKey === 'undefined') replaceKey = '*';
+
+    var self = this;
+    var originalString = str;
+    var lowerString = str.toLowerCase();
+    var outputString = str;
+
+    words.forEach(function(word) {
+      var wordLength = word.length;
+      var replacementWord = self.getReplacementWord(replaceKey, wordLength)
+      var index = lowerString.indexOf(word);
+
+      // if still found profanity word
+      while (index !== -1) {
+        outputString = outputString.substr(0, index) + replacementWord + outputString.substr(index + wordLength);
+        lowerString = outputString.toLowerCase();
+        index = lowerString.indexOf(word);
+      }
+    });
+
+    return outputString;
   },
 
   /**

@@ -24,7 +24,6 @@ describe('Profanity filter', function() {
   });
 
   it('clean', function() {
-    /*
     // clean with default replacement-character
     expect(filter.clean('I have boob')).to.equal('I have ****');
 
@@ -32,8 +31,7 @@ describe('Profanity filter', function() {
     expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
 
     // check multi occurrence
-    expect(filter.clean('I have boob,boob, boob.')).to.equal('I have ****,****, ****.');
-    */
+    expect(filter.clean('I have boob,boob, ass.')).to.equal('I have ****,****, ***.');
   })
 
   it('add', function() {

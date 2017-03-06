@@ -32,6 +32,19 @@ filter.clean('I have b00b');
 // output: true
 ```
 
+### filter.clean(string, [replacement-char=*])
+
+```javascript
+filter.clean('I have b00b');
+// output: I have ****
+
+filter.clean('I have b00b', '+');
+// output: I have ++++
+
+filter.clean('I have boob,boob, ass.');
+// output: I have ****,****, ***.
+```
+
 ### filter.add(string|array)
 
 ```javascript
