@@ -7,7 +7,8 @@ var words = JSON.parse(fs.readFileSync('./dictionary/default.json', 'utf8'));
 var LeoProfanity = {
 
   /**
-   * Remove word from the list (private)
+   * Remove word from the list
+   * (private)
    *
    * @param {string} str
    */
