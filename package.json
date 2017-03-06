@@ -38,7 +38,7 @@
     "test": "mocha test/index.spec.js",
     "commit": "git-cz",
     "coverage": "nyc --reporter=lcov npm t",
-    "coverage.check": "nyc check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
+    "coverage.check": "nyc check-coverage --statements 90 --branches 80 --functions 100 --lines 100",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
     "eslint": "eslint src/index.js",
     "test.watch": "npm t -- --watch",
