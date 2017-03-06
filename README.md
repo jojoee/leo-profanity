@@ -134,6 +134,7 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Complete `clean` API
 - [ ] Increase code coverage percentage
 - [ ] Fix ESLint
+- [ ] Demo page
 
 ## Other language / framework
 - [ ] PHP on [packagist.org](packagist.org)
@@ -162,6 +163,7 @@ Using above command to setup "semantic-release"
 [![NPM](https://nodei.co/npm/leo-profanity.png?downloads=true&stars=true)](https://nodei.co/npm/leo-profanity/)
 
 ## Reference
+- Inspired by [jwils0n/profanity-filter](https://github.com/jwils0n/profanity-filter)
 - Algorithm / Discussion
   - ["similar-like" symbol to alphabet](http://stackoverflow.com/questions/24515/bad-words-filter#answer-24615)
   - [Replace Bad words using Regex](http://stackoverflow.com/questions/3342011/replace-bad-words-using-regex)
