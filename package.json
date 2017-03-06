@@ -26,6 +26,14 @@
     "node": "6.x",
     "npm": "3.x"
   },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run validate"
+    },
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
   "scripts": {
     "test": "mocha test/index.spec.js",
     "commit": "git-cz",
