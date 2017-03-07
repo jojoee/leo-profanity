@@ -1,7 +1,8 @@
+/* global describe, before, it */
 var expect = require('chai').expect;
 var filter = require('../src/index.js');
 
-describe('Profanity filter', function() {  
+describe('Profanity filter', function() {
   before(function() {
 
   });
