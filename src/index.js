@@ -107,7 +107,7 @@ var LeoProfanity = {
    * @param {string} [replaceKey=*]
    * @returns {string}
    */
-  clean: function(str, replaceKey = '*') {
+  clean: function(str, replaceKey) {
     if (typeof replaceKey === 'undefined') replaceKey = '*';
 
     var self = this;
