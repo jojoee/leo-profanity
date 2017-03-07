@@ -64,6 +64,7 @@ describe('Profanity filter', function() {
   });
 
   it('clearList', function() {
-    expect(filter.clearList()).to.be.empty;
+    filter.clearList();
+    expect(filter.list()).to.be.empty;
   });
 });

@@ -173,7 +173,9 @@ var LeoProfanity = {
    */
   clearList: function() {
     words = [];
-  }
+
+    return this;
+  },
 };
 
 module.exports = LeoProfanity;
