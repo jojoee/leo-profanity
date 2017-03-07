@@ -48,6 +48,8 @@ var LeoProfanity = {
    * getReplacementWord('-', 4)
    * return '----'
    *
+   * @param {string} key
+   * @param {number} n
    * @returns string
    */
   getReplacementWord(key, n) {
@@ -64,7 +66,7 @@ var LeoProfanity = {
   /**
    * Return all profanity words
    *
-   * @returns {Array}
+   * @returns {Array.string}
    */
   list: function() {
     return words;
@@ -73,7 +75,6 @@ var LeoProfanity = {
   /**
    * Check the string contain profanity words or not
    *
-   * @todo update algorithm
    * @todo implement break
    *
    * @param {string} str
@@ -100,8 +101,6 @@ var LeoProfanity = {
 
   /**
    * Replace profanity words
-   *
-   * @todo update algorithm
    *
    * @param {string} str
    * @param {string} [replaceKey=*]
@@ -134,10 +133,7 @@ var LeoProfanity = {
   /**
    * Add word to the list
    *
-   * @todo update algorithm
-   * @see http://stackoverflow.com/questions/16747798/delete-duplicate-elements-from-an-array
-   *
-   * @param {string|array} data
+   * @param {string|Array.string} data
    */
   add: function(data) {
     var self = this;
@@ -156,7 +152,7 @@ var LeoProfanity = {
   /**
    * Remove word from the list
    *
-   * @param {string|array} data
+   * @param {string|Array.string} data
    */
   remove: function(data) {
     var self = this;
