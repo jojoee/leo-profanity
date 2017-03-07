@@ -81,7 +81,7 @@ filter.remove(['b00b', 'b@@b']);
 
 ### filter.clearList()
 
-clear all profanity words
+Clear all profanity words
 
 ## Algorithm
 
@@ -155,6 +155,7 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Increase code coverage percentage
 - [ ] Fix ESLint
 - [ ] Demo page
+- [ ] More word dictionary
 
 ## Other language / framework
 - [ ] PHP on [packagist.org](packagist.org)
