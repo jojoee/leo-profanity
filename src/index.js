@@ -23,6 +23,20 @@ var LeoProfanity = {
   },
 
   /**
+   * Add word into the list
+   * (private)
+   *
+   * @param {string} str
+   */
+  addWord: function(str) {
+    if (words.indexOf(str) === -1) {
+      words.push(str);
+    }
+
+    return this;
+  },
+
+  /**
    * Return replacement word from key
    * (private)
    *
@@ -126,17 +140,15 @@ var LeoProfanity = {
    * @param {string|array} data
    */
   add: function(data) {
-    // add
-    if (typeof data === 'string') {
-      words.push(data)
-    } else if (data.constructor === Array) {
-      words = words.concat(data);
-    }
+    var self = this;
 
-    // remove duplication
-    words = words.filter(function(elem, index, self) {
-      return index == self.indexOf(elem);
-    });
+    if (typeof data === 'string') {
+      self.addWord(data);
+    } else if (data.constructor === Array) {
+      data.forEach(function(word) {
+        self.addWord(word);
+      });
+    }
 
     return this;
   },
