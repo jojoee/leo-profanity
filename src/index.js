@@ -148,17 +148,14 @@ var LeoProfanity = {
    */
   remove: function(data) {
     var self = this;
-    var items = [];
 
     if (typeof data === 'string') {
-      items.push(data);
+      self.removeWord(data);
     } else if (data.constructor === Array) {
-      items = data;
+      data.forEach(function(word) {
+        self.removeWord(word);
+      });
     }
-
-    items.forEach(function(item) {
-      self.removeWord(item);
-    });
 
     return this;
   },
