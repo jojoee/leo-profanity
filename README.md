@@ -25,38 +25,58 @@ bower install leo-profanity
 var filter = require('leo-profanity');
 ```
 
+### filter.list()
+
+```javascript
+// return all profanity words (Array.string)
+filter.list();
+```
+
 ### filter.check(string)
 
 ```javascript
-filter.clean('I have b00b');
 // output: true
+filter.clean('I have boob');
+
+// case-sensitive
+// output: true
+filter.check('I have BoOb.');
 ```
 
-### filter.clean(string, [replacement-char=*])
+### filter.clean(string, [replaceKey=*])
 
 ```javascript
-filter.clean('I have b00b');
 // output: I have ****
+filter.clean('I have b00b');
 
-filter.clean('I have b00b', '+');
+// custom replaceKey
 // output: I have ++++
+filter.clean('I have b00b', '+');
 
-filter.clean('I have boob,boob, ass.');
+// multi occurrence
 // output: I have ****,****, ***.
+filter.clean('I have boob,boob, ass.');
 ```
 
-### filter.add(string|array)
+### filter.add(string|Array.string)
 
 ```javascript
+// add word
 filter.add('b00b');
-filter.add('b00b', 'bOOb',);
+
+// add word's array
+// check duplication automatically
+filter.add(['b00b', 'b@@b']);
 ```
 
-### filter.remove(string|array)
+### filter.remove(string|Array.string)
 
 ```javascript
+// remove word
 filter.remove('b00b');
-filter.remove('b00b', 'bOOb',);
+
+// remove word's array
+filter.remove(['b00b', 'b@@b']);
 ```
 
 ### filter.clearList()
