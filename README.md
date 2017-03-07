@@ -79,6 +79,10 @@ filter.remove('b00b');
 filter.remove(['b00b', 'b@@b']);
 ```
 
+### filter.reset()
+
+Reset word list by using default dictionary (also remove word that manually add)
+
 ### filter.clearList()
 
 Clear all profanity words

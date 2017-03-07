@@ -63,6 +63,20 @@ describe('Profanity filter', function() {
     expect(filter.list()).to.not.include('boobs');
   });
 
+  it('reset', function() {
+    // reset
+    filter.reset();
+
+    // prepare data to test by adding new 2 bad words
+    var numberOfCurrentWords = filter.list().length;
+    filter.add(['badword1', 'badword2']);
+    expect(filter.list().length).to.equal(numberOfCurrentWords + 2);
+
+    // reset
+    filter.reset();
+    expect(filter.list().length).to.equal(numberOfCurrentWords);
+  });
+
   it('clearList', function() {
     filter.clearList();
     expect(filter.list()).to.be.empty;

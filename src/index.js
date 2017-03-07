@@ -1,5 +1,7 @@
 var fs = require('fs');
-var words = JSON.parse(fs.readFileSync('./dictionary/default.json', 'utf8'));
+var wordDictionary = [];
+wordDictionary['default'] = JSON.parse(fs.readFileSync('./dictionary/default.json', 'utf8'));
+var words = JSON.parse(JSON.stringify(wordDictionary['default']));
 
 /**
  * LeoProfanity
@@ -61,6 +63,22 @@ var LeoProfanity = {
     }
 
     return replacementWord;
+  },
+
+  /**
+   * Get word dictionary
+   * Now, we only have default dictionary
+   * (private)
+   *
+   * @param {string} dictionaryName
+   */
+  getDictionary: function(dictionaryName) {
+    var result = [];
+    if (wordDictionary[dictionaryName] !== 'undefined') {
+      result = JSON.parse(JSON.stringify(wordDictionary[dictionaryName]));
+    }
+
+    return result;
   },
 
   /**
@@ -164,6 +182,15 @@ var LeoProfanity = {
         self.removeWord(word);
       });
     }
+
+    return this;
+  },
+
+  /**
+   * Reset word list by using default dictionary (also remove word that manually add)
+   */
+  reset: function() {
+    words = this.getDictionary('default');
 
     return this;
   },
