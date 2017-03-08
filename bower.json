@@ -1,6 +1,6 @@
 {
   "name": "leo-profanity",
-  "description": "Profanity filter utility",
+  "description": "Profanity filter, based on Shutterstock dictionary",
   "main": "src/index.js",
   "authors": [
     "Nathachai Thongniran <inid3a@gmail.com>"
