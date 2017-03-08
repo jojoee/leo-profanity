@@ -121,7 +121,7 @@ var LeoProfanity = {
    * Replace profanity words
    *
    * @param {string} str
-   * @param {string} [replaceKey=*]
+   * @param {string} [replaceKey=*] one character only
    * @returns {string}
    */
   clean: function(str, replaceKey) {
