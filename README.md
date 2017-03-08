@@ -113,7 +113,7 @@ Disadvantage:
 Attempt 3 (1.3): replace `.` and `,` with space to separate words
 in some sentence, people usually using `.` and `,` to connect / end the sentence
 Advantage:
-  - incredibly founding possibility
+  - increase founding possibility
   e.g. I like a55,b00b
 Disadvantage:
   - none
