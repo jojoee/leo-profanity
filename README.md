@@ -49,7 +49,7 @@ filter.check('I have BoOb.');
 // output: I have ****
 filter.clean('I have b00b');
 
-// custom replaceKey
+// custom replaceKey (one character only)
 // output: I have ++++
 filter.clean('I have b00b', '+');
 
@@ -122,7 +122,7 @@ Disadvantage:
 ### Filter
 ```
 Attempt 1 (2.1): split into array (or using regex, somehow)
-using space to split it into array then check by bad-word list
+using space to split it into array then check by profanity word list
 Advantage:
   - simple
 Disadvantage:
@@ -131,10 +131,10 @@ Disadvantage:
   e.g. Great tit (https://en.wikipedia.org/wiki/Great_tit)
 
 Attempt 2 (2.2): filter word inside (with or without space)
-detect all alphabet that contain "bad word" (e.g. `thistextisfunnyboobsanda55`)
+detect all alphabet that contain "profanity word" (e.g. `thistextisfunnyboobsanda55`)
 Advantage:
   - simple
-  - can detect "un-spaced" bad word
+  - can detect "un-spaced" profanity word
 Disadvantage:
   - many "false positive"
   e.g. http://www.morewords.com/contains/ass/
@@ -142,7 +142,7 @@ Disadvantage:
 ```
 
 Summary
-- We don't know all methods that can produce bad word
+- We don't know all methods that can produce profanity word
   (e.g. how many different ways can you enter a55 ?)
 - There have a non-algorithm-based approach to achieve it (yet)
 - People will always find a way to connect with each other
