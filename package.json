@@ -40,7 +40,7 @@
     "coverage": "nyc --reporter=lcov npm t",
     "coverage.check": "nyc check-coverage --statements 90 --branches 80 --functions 100 --lines 100",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
-    "eslint": "eslint src/index.js test/index.spec.js",
+    "eslint": "eslint src/**/*.js test/**/*.spec.js",
     "test.watch": "npm t -- --watch",
     "validate": "npm run eslint && npm run coverage && npm run coverage.check",
     "setup": "npm install && npm run validate",
