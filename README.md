@@ -34,13 +34,11 @@ filter.list();
 
 ### filter.check(string)
 
+Check out mor example on [filter.clean](https://github.com/jojoee/leo-profanity#filtercleanstring-replacekey)
+
 ```javascript
 // output: true
 filter.clean('I have boob');
-
-// case-sensitive
-// output: true
-filter.check('I have BoOb.');
 ```
 
 ### filter.clean(string, [replaceKey=*])
@@ -155,11 +153,15 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [x] `add` method
 - [ ] Filter html syntax
 - [ ] Support multi-language
-- [ ] Complete `clean` API
-- [ ] Increase code coverage percentage
-- [ ] Fix ESLint
+- [x] Complete `clean` API
+- [x] Increase code coverage percentage
+- [x] Fix ESLint
 - [ ] Demo page
 - [ ] More word dictionary
+- [ ] `setDictionary` function
+- [ ] Encapsulate private function
+- [ ] Order by alphabetical
+- [ ] Order by length
 
 ## Other language / framework
 - [ ] PHP on [packagist.org](packagist.org)
