@@ -71,6 +71,7 @@ var LeoProfanity = {
    * (private)
    *
    * @param {string} dictionaryName
+   * @returns {Array.string}
    */
   getDictionary: function(dictionaryName) {
     var result = [];
