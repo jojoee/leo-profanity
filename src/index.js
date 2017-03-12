@@ -1,5 +1,6 @@
 var fs = require('fs');
 var wordDictionary = [];
+var Util = require('./module/Util');
 wordDictionary['default'] = JSON.parse(fs.readFileSync('./dictionary/default.json', 'utf8'));
 var words = JSON.parse(JSON.stringify(wordDictionary['default']));
 
@@ -92,61 +93,98 @@ var LeoProfanity = {
   },
 
   /**
-   * Check the string contain profanity words or not
+   * Sanitize string for this project
+   * 1. Convert to lower case
+   * 2. Replace comma and dot with space
+   * (private)
    *
-   * @todo implement break
+   * @param {string} str
+   * @returns {string}
+   */
+  sanitize: function(str) {
+    str = str.toLowerCase();
+    /* eslint-disable */
+    str = str.replace(/\.|,/g, ' ');
+
+    return str;
+  },
+
+  /**
+   * Check the string contain profanity words or not
+   * Approach, to make it fast ASAP
+   *
+   * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
+   * @see http://stackoverflow.com/questions/6116474/how-to-find-if-an-array-contains-a-specific-string-in-javascript-jquery
+   * @see http://stackoverflow.com/questions/9141951/splitting-string-by-whitespace-without-empty-elements
    *
    * @param {string} str
    * @returns {boolean}
    */
   check: function(str) {
-    var result = false;
+    if (!str) return false;
 
-    // 1. convert to lower case
-    str = str.toLowerCase();
+    var i = 0;
+    var isFound = false;
 
-    // 2. replace comma and dot with space
-    /* eslint-disable */
-    str = str.replace(/\.|,/g,'');
+    str = this.sanitize(str);
+    // convert into array and remove white space
+    strs = str.match(/[^ ]+/g);
+    while (!isFound && i <= words.length - 1) {
+      if (strs.includes(words[i])) isFound = true;
+      i++;
+    }
 
-    words.forEach(function(word) {
-      if (str.indexOf(word) !== -1) {
-        result = true;
-      }
-    });
-
-    return result;
+    return isFound;
   },
 
   /**
    * Replace profanity words
+   * 
+   * @todo improve algorithm
+   * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
    *
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
    * @returns {string}
    */
   clean: function(str, replaceKey) {
+    if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
 
     var self = this;
     var originalString = str;
-    var lowerString = str.toLowerCase();
-    var outputString = str;
+    var result = str;
 
-    words.forEach(function(word) {
-      var wordLength = word.length;
-      var replacementWord = self.getReplacementWord(replaceKey, wordLength)
-      var index = lowerString.indexOf(word);
+    // collect comman and dot
+    var commaIndices = Util.getIndicesOf(',', originalString);
+    var dotIndices = Util.getIndicesOf('.', originalString);
 
-      // if still found profanity word
-      while (index !== -1) {
-        outputString = outputString.substr(0, index) + replacementWord + outputString.substr(index + wordLength);
-        lowerString = outputString.toLowerCase();
-        index = lowerString.indexOf(word);
+    var sanitizedStr = this.sanitize(originalString);
+    sanitizedArr = sanitizedStr.split(/(\s)/);
+    resultArr = result.split(/(\s|,|\.)/);
+
+    // loop through given string
+    sanitizedArr.forEach(function(item, index) {
+      if (words.includes(item)) {
+        var replacementWord = self.getReplacementWord(replaceKey, item.length);
+        resultArr[index] = replacementWord;
       }
     });
 
-    return outputString;
+    // combine it
+    result = resultArr.join('');
+
+    // restore comman
+    commaIndices.forEach(function(index) {
+      result = result.replace(index, ',');
+    });
+
+    // restore dot
+    dotIndices.forEach(function(index) {
+      result = result.replace(index, '.');
+    });
+
+    return result;
   },
 
   /**

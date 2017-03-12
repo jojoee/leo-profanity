@@ -13,8 +13,20 @@ describe('Profanity filter', function() {
   });
 
   it('check', function() {
+    // empty string
+    expect(filter.check('')).to.be.false;
+
+    // no bad word
     expect(filter.check('I have 2 eyes')).to.be.false;
-    expect(filter.check('I have boob')).to.be.true;
+
+    // normal case
+    expect(filter.check('I have boob, etc.')).to.be.true;
+
+    // first & last
+    expect(filter.check('2g1c')).to.be.true;
+    expect(filter.check('zoophilia')).to.be.true;
+    expect(filter.check('lorem 2g1c ipsum')).to.be.true;
+    expect(filter.check('lorem zoophilia ipsum')).to.be.true;
 
     // check case sensitive
     expect(filter.check('I have BoOb')).to.be.true;
@@ -22,17 +34,45 @@ describe('Profanity filter', function() {
     // check comma and dot
     expect(filter.check('I have BoOb,')).to.be.true;
     expect(filter.check('I have BoOb.')).to.be.true;
+
+    // check multi occurrence
+    expect(filter.check('I have boob,boob, ass, and etc.')).to.be.true;
+
+    // should not detect unspaced-word
+    expect(filter.check('Buy classic watches online')).to.be.false;
   });
 
   it('clean', function() {
-    // clean with default replacement-character
-    expect(filter.clean('I have boob')).to.equal('I have ****');
+    // empty string
+    expect(filter.clean('')).to.equal('');
 
-    // clean with default custom replacement-character
-    expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
+    // no bad word
+    expect(filter.clean('I have 2 eyes')).to.equal('I have 2 eyes');
+
+    // normal case
+    expect(filter.clean('I have boob, etc.')).to.equal('I have ****, etc.');
+
+    // first & last
+    expect(filter.clean('2g1c')).to.equal('****');
+    expect(filter.clean('zoophilia')).to.equal('*********');
+    expect(filter.clean('lorem 2g1c ipsum')).to.equal('lorem **** ipsum');
+    expect(filter.clean('lorem zoophilia ipsum')).to.equal('lorem ********* ipsum');
+
+    // check case sensitive
+    expect(filter.clean('I have BoOb')).to.equal('I have ****');
+
+    // separated by comma and dot
+    expect(filter.clean('I have BoOb,')).to.equal('I have ****,');
+    expect(filter.clean('I have BoOb.')).to.equal('I have ****.');
 
     // check multi occurrence
-    expect(filter.clean('I have boob,boob, ass.')).to.equal('I have ****,****, ***.');
+    expect(filter.clean('I have boob,boob, ass, and etc.')).to.equal('I have ****,****, ***, and etc.');
+
+    // should not detect unspaced-word
+    expect(filter.clean('Buy classic watches online')).to.equal('Buy classic watches online');
+
+    // clean with custom replacement-character
+    expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
   })
 
   it('add', function() {

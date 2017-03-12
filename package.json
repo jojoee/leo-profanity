@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "test": "mocha test/index.spec.js",
+    "test": "mocha test/**/*.spec.js",
     "commit": "git-cz",
     "coverage": "nyc --reporter=lcov npm t",
     "coverage.check": "nyc check-coverage --statements 90 --branches 80 --functions 100 --lines 100",

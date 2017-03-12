@@ -44,16 +44,33 @@ filter.clean('I have boob');
 ### filter.clean(string, [replaceKey=*])
 
 ```javascript
-// output: I have ****
-filter.clean('I have b00b');
+// no bad word
+// output: I have 2 eyes
+filter.clean('I have 2 eyes');
 
-// custom replaceKey (one character only)
-// output: I have ++++
-filter.clean('I have b00b', '+');
+// normal case
+// output: I have ****, etc.
+filter.clean('I have boob, etc.');
+
+// case sensitive
+// output: I have ****
+filter.clean('I have BoOb');
+
+// separated by comma and dot
+// output: I have ****.
+filter.clean('I have BoOb.');
 
 // multi occurrence
-// output: I have ****,****, ***.
-filter.clean('I have boob,boob, ass.');
+// output: I have ****,****, ***, and etc.
+filter.clean('I have boob,boob, ass, and etc.');
+
+// should not detect unspaced-word
+// output: Buy classic watches online
+filter.clean('Buy classic watches online');
+
+// clean with custom replacement-character
+// output: I have ++++
+filter.clean('I have boob', '+');
 ```
 
 ### filter.add(string|Array.string)
