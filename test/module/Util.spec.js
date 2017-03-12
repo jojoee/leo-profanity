@@ -14,5 +14,11 @@ describe('Util', function() {
       25,
       27,
     ]);
+
+    // with startIndex
+    expect(util.getIndicesOf(key, 'I learned to play the Ukulele in Lebanon.', 25)).to.eql([
+      25,
+      27,
+    ]);
   });
 });
