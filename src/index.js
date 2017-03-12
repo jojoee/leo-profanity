@@ -54,7 +54,7 @@ var LeoProfanity = {
    * @param {number} n
    * @returns string
    */
-  getReplacementWord(key, n) {
+  getReplacementWord: function(key, n) {
     var i = 0;
     var replacementWord = '';
 
