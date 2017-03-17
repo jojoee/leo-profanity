@@ -160,7 +160,10 @@ var LeoProfanity = {
     var dotIndices = Util.getIndicesOf('.', originalString);
 
     var sanitizedStr = this.sanitize(originalString);
+    // split by whitespace (keep delimiter)
+    // (cause comma and dot already replaced by whitespace)
     var sanitizedArr = sanitizedStr.split(/(\s)/);
+    // split by whitespace, comma and dot (keep delimiter)
     var resultArr = result.split(/(\s|,|\.)/);
 
     // loop through given string
