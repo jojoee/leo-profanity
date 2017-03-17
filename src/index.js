@@ -1,6 +1,5 @@
 var fs = require('fs');
 var wordDictionary = [];
-var Util = require('./module/Util');
 wordDictionary['default'] = JSON.parse(fs.readFileSync('./dictionary/default.json', 'utf8'));
 var words = JSON.parse(JSON.stringify(wordDictionary['default']));
 
@@ -155,10 +154,6 @@ var LeoProfanity = {
     var originalString = str;
     var result = str;
 
-    // collect comman and dot
-    var commaIndices = Util.getIndicesOf(',', originalString);
-    var dotIndices = Util.getIndicesOf('.', originalString);
-
     var sanitizedStr = this.sanitize(originalString);
     // split by whitespace (keep delimiter)
     // (cause comma and dot already replaced by whitespace)
@@ -176,16 +171,6 @@ var LeoProfanity = {
 
     // combine it
     result = resultArr.join('');
-
-    // restore comman
-    commaIndices.forEach(function(index) {
-      result = result.replace(index, ',');
-    });
-
-    // restore dot
-    dotIndices.forEach(function(index) {
-      result = result.replace(index, '.');
-    });
 
     return result;
   },
