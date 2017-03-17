@@ -160,8 +160,8 @@ var LeoProfanity = {
     var dotIndices = Util.getIndicesOf('.', originalString);
 
     var sanitizedStr = this.sanitize(originalString);
-    sanitizedArr = sanitizedStr.split(/(\s)/);
-    resultArr = result.split(/(\s|,|\.)/);
+    var sanitizedArr = sanitizedStr.split(/(\s)/);
+    var resultArr = result.split(/(\s|,|\.)/);
 
     // loop through given string
     sanitizedArr.forEach(function(item, index) {
