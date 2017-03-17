@@ -73,6 +73,10 @@ describe('Profanity filter', function() {
 
     // clean with custom replacement-character
     expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
+
+    // with multi space
+    expect(filter.clean('I  hav   ,e BoOb,  ')).to.equal('I  hav   ,e ****,  ');
+    expect(filter.clean(',I h  a.   v e BoOb.')).to.equal(',I h  a.   v e ****.');
   })
 
   it('add', function() {
