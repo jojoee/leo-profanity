@@ -1,128 +1,152 @@
-/* global describe, before, it */
+/* global describe, it */
 var expect = require('chai').expect;
 var filter = require('../src/index.js');
 
 describe('Profanity filter', function() {
-  before(function() {
-
+  describe('list', function() {
+    it('should contain boob word', function() {
+      expect(filter.list()).to.include('boob');
+    });
   });
 
-  it('list', function() {
-    // it should contain 'boob'
-    expect(filter.list()).to.include('boob');
+  describe('check', function() {
+    it('should return false if param is empty string', function() {
+      expect(filter.check('')).to.be.false;
+    });
+
+    it('should return false if string not contain profanity word', function() {
+      expect(filter.check('I have 2 eyes')).to.be.false;
+    });
+
+    it('should return true if string contain profanity word', function() {
+      // normal case
+      expect(filter.check('I have boob, etc.')).to.be.true;
+
+      // first & last
+      expect(filter.check('2g1c')).to.be.true;
+      expect(filter.check('zoophilia')).to.be.true;
+      expect(filter.check('lorem 2g1c ipsum')).to.be.true;
+      expect(filter.check('lorem zoophilia ipsum')).to.be.true;
+    });
+
+    it('should detect case sensitive', function() {
+      expect(filter.check('I have BoOb')).to.be.true;
+    });
+
+    it('should detect dot and comma', function() {
+      expect(filter.check('I have BoOb,')).to.be.true;
+      expect(filter.check('I have BoOb.')).to.be.true;
+    });
+
+    it('should detect multi occurrence', function() {
+      expect(filter.check('I have boob,boob, ass, and etc.')).to.be.true;
+    });
+
+    it('should not detect unspaced-word', function() {
+      expect(filter.check('Buy classic watches online')).to.be.false;
+    });
   });
 
-  it('check', function() {
-    // empty string
-    expect(filter.check('')).to.be.false;
+  describe('check', function() {
+    it('should return empty string if param is empty string', function() {
+      expect(filter.clean('')).to.equal('');
+    });
 
-    // no bad word
-    expect(filter.check('I have 2 eyes')).to.be.false;
+    it('should return original string if string not contain profanity word', function() {
+      expect(filter.clean('I have 2 eyes')).to.equal('I have 2 eyes');
+    });
 
-    // normal case
-    expect(filter.check('I have boob, etc.')).to.be.true;
+    it('should replace profanity word with *', function() {
+      // normal case
+      expect(filter.clean('I have boob, etc.')).to.equal('I have ****, etc.');
 
-    // first & last
-    expect(filter.check('2g1c')).to.be.true;
-    expect(filter.check('zoophilia')).to.be.true;
-    expect(filter.check('lorem 2g1c ipsum')).to.be.true;
-    expect(filter.check('lorem zoophilia ipsum')).to.be.true;
+      // first & last
+      expect(filter.clean('2g1c')).to.equal('****');
+      expect(filter.clean('zoophilia')).to.equal('*********');
+      expect(filter.clean('lorem 2g1c ipsum')).to.equal('lorem **** ipsum');
+      expect(filter.clean('lorem zoophilia ipsum')).to.equal('lorem ********* ipsum');
+    });
 
-    // check case sensitive
-    expect(filter.check('I have BoOb')).to.be.true;
+    it('should detect case sensitive', function() {
+      expect(filter.clean('I have BoOb')).to.equal('I have ****');
+    });
 
-    // check comma and dot
-    expect(filter.check('I have BoOb,')).to.be.true;
-    expect(filter.check('I have BoOb.')).to.be.true;
+    it('should detect dot and comma', function() {
+      expect(filter.clean('I have BoOb,')).to.equal('I have ****,');
+      expect(filter.clean('I have BoOb.')).to.equal('I have ****.');
+    });
 
-    // check multi occurrence
-    expect(filter.check('I have boob,boob, ass, and etc.')).to.be.true;
+    it('should detect multi occurrence', function() {
+      expect(filter.clean('I have boob,boob, ass, and etc.')).to.equal('I have ****,****, ***, and etc.');
+    });
 
-    // should not detect unspaced-word
-    expect(filter.check('Buy classic watches online')).to.be.false;
-  });
+    it('should not detect unspaced-word', function() {
+      expect(filter.clean('Buy classic watches online')).to.equal('Buy classic watches online');
+    });
 
-  it('clean', function() {
-    // empty string
-    expect(filter.clean('')).to.equal('');
+    it('should replace profanity word with + (custom replacement-character)', function() {
+      expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
+    });
 
-    // no bad word
-    expect(filter.clean('I have 2 eyes')).to.equal('I have 2 eyes');
-
-    // normal case
-    expect(filter.clean('I have boob, etc.')).to.equal('I have ****, etc.');
-
-    // first & last
-    expect(filter.clean('2g1c')).to.equal('****');
-    expect(filter.clean('zoophilia')).to.equal('*********');
-    expect(filter.clean('lorem 2g1c ipsum')).to.equal('lorem **** ipsum');
-    expect(filter.clean('lorem zoophilia ipsum')).to.equal('lorem ********* ipsum');
-
-    // check case sensitive
-    expect(filter.clean('I have BoOb')).to.equal('I have ****');
-
-    // separated by comma and dot
-    expect(filter.clean('I have BoOb,')).to.equal('I have ****,');
-    expect(filter.clean('I have BoOb.')).to.equal('I have ****.');
-
-    // check multi occurrence
-    expect(filter.clean('I have boob,boob, ass, and etc.')).to.equal('I have ****,****, ***, and etc.');
-
-    // should not detect unspaced-word
-    expect(filter.clean('Buy classic watches online')).to.equal('Buy classic watches online');
-
-    // clean with custom replacement-character
-    expect(filter.clean('I have boob', '+')).to.equal('I have ++++');
-
-    // with multi space
-    expect(filter.clean('I  hav   ,e BoOb,  ')).to.equal('I  hav   ,e ****,  ');
-    expect(filter.clean(',I h  a.   v e BoOb.')).to.equal(',I h  a.   v e ****.');
+    it('should detect multi-length-space and multi-space', function() {
+      expect(filter.clean('I  hav   ,e BoOb,  ')).to.equal('I  hav   ,e ****,  ');
+      expect(filter.clean(',I h  a.   v e BoOb.')).to.equal(',I h  a.   v e ****.');
+    });
   })
 
-  it('add', function() {
-    // string
-    filter.add('b00b');
-    expect(filter.list()).to.include('b00b');
+  describe('add', function() {
+    it('should contain new word by given string', function() {
+      filter.add('b00b');
+      expect(filter.list()).to.include('b00b');
+    });
 
-    // Array
-    filter.add(['b@@b', 'b##b']);
-    expect(filter.list()).to.include('b@@b');
-    expect(filter.list()).to.include('b##b');
+    it('should contain new words by given array of string', function() {
+      filter.add(['b@@b', 'b##b']);
+      expect(filter.list()).to.include('b@@b');
+      expect(filter.list()).to.include('b##b');
+    });
 
-    // check duplication
-    // it should remove duplication
-    var numberOfCurrentWords = filter.list().length;
-    filter.add(['b@@b', 'b##b']);
-    expect(filter.list().length).to.equal(numberOfCurrentWords);
+    it('should not add if we already have', function() {
+      // check duplication
+      var numberOfCurrentWords = filter.list().length;
+      filter.add(['b@@b', 'b##b']);
+      expect(filter.list().length).to.equal(numberOfCurrentWords);
+    });
   });
 
-  it('remove', function() {
-    // string
-    filter.remove('boob');
-    expect(filter.list()).to.not.include('boob');
+  describe('remove', function() {
+    it('should remove word by given string', function() {
+      filter.remove('boob');
+      expect(filter.list()).to.not.include('boob');
+    });
 
-    // Array
-    filter.remove(['boob', 'boobs']);
-    expect(filter.list()).to.not.include('boob');
-    expect(filter.list()).to.not.include('boobs');
+    it('should remove words by given array of string', function() {
+      filter.remove(['boob', 'boobs']);
+      expect(filter.list()).to.not.include('boob');
+      expect(filter.list()).to.not.include('boobs');
+    });
   });
 
-  it('reset', function() {
-    // reset
-    filter.reset();
+  describe('reset', function() {
+    it('should reset words by using default dictionary', function() {
+      // reset
+      filter.reset();
 
-    // prepare data to test by adding new 2 bad words
-    var numberOfCurrentWords = filter.list().length;
-    filter.add(['badword1', 'badword2']);
-    expect(filter.list().length).to.equal(numberOfCurrentWords + 2);
+      // prepare data to test by adding new 2 bad words
+      var numberOfCurrentWords = filter.list().length;
+      filter.add(['badword1', 'badword2']);
+      expect(filter.list().length).to.equal(numberOfCurrentWords + 2);
 
-    // reset
-    filter.reset();
-    expect(filter.list().length).to.equal(numberOfCurrentWords);
+      // reset
+      filter.reset();
+      expect(filter.list().length).to.equal(numberOfCurrentWords);
+    });
   });
 
-  it('clearList', function() {
-    filter.clearList();
-    expect(filter.list()).to.be.empty;
+  describe('clearList', function() {
+    it('should remove words in the list', function() {
+      filter.clearList();
+      expect(filter.list()).to.be.empty;
+    });
   });
 });
