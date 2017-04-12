@@ -180,8 +180,9 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Order by alphabetical
 - [ ] Order by length
 
-## Other language / framework
-- [ ] PHP on [packagist.org](packagist.org)
+## Other languages
+- [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
+- [x] PHP on [packagist.org/packages/jojoee/leo-profanity](https://packagist.org/packages/jojoee/leo-profanity)
 - [ ] Python on [PyPI](https://pypi.python.org/pypi)
 - [ ] Java on [Maven](https://maven.apache.org/)
 - [ ] Wordpress on [wordpress.org](https://wordpress.org/)
