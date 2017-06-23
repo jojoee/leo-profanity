@@ -22,10 +22,6 @@
     "rimraf": "2.5.4",
     "semantic-release": "^6.3.2"
   },
-  "engines": {
-    "node": "6.x",
-    "npm": "3.x"
-  },
   "config": {
     "ghooks": {
       "pre-commit": "npm run validate"
