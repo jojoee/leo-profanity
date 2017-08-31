@@ -1,4 +1,3 @@
-var fs = require('fs');
 var wordDictionary = [];
 wordDictionary['default'] = require('../dictionary/default.json');
 var words = JSON.parse(JSON.stringify(wordDictionary['default']));
