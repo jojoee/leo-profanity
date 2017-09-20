@@ -1,5 +1,6 @@
 var wordDictionary = [];
 wordDictionary['default'] = require('../dictionary/default.json');
+wordDictionary['fr'] = require('french-badwords-list').array;
 var words = JSON.parse(JSON.stringify(wordDictionary['default']));
 
 /**
@@ -79,6 +80,20 @@ var LeoProfanity = {
     }
 
     return result;
+  },
+
+  /**
+   * Load word dictionary to be used by the filter 
+   *
+   *
+   */
+  loadDictionary: function(dictionaryName) {
+    if (dictionaryName in wordDictionary) {
+      words = JSON.parse(JSON.stringify(this.getDictionary(dictionaryName)));
+    } else {
+      words = JSON.parse(JSON.stringify(this.getDictionary('default')));
+    }
+    
   },
 
   /**
@@ -229,6 +244,7 @@ var LeoProfanity = {
 
     return this;
   },
+
 };
 
 module.exports = LeoProfanity;
