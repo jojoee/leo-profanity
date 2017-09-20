@@ -16,3 +16,6 @@ bk*
 # Log
 npm-debug.log
 package-lock.json
+
+# Mac
+**/.DS_Store
