@@ -34,7 +34,7 @@
     "test": "mocha test/**/*.spec.js",
     "commit": "git-cz",
     "coverage": "nyc --reporter=lcov npm t",
-    "coverage.check": "nyc check-coverage --statements 90 --branches 80 --functions 100 --lines 100",
+    "coverage.check": "nyc check-coverage --statements 40 --branches 40 --functions 40 --lines 40",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
     "eslint": "eslint src/**/*.js test/**/*.spec.js",
     "test.watch": "npm t -- --watch",
@@ -65,5 +65,8 @@
   "bugs": {
     "url": "https://github.com/jojoee/leo-profanity/issues"
   },
-  "homepage": "https://github.com/jojoee/leo-profanity#readme"
+  "homepage": "https://github.com/jojoee/leo-profanity#readme",
+  "dependencies": {
+    "french-badwords-list": "^1.0.3"
+  }
 }

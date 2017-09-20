@@ -25,6 +25,16 @@ bower install leo-profanity
 var filter = require('leo-profanity');
 ```
 
+### filter.loadDictionary(string)
+
+```javascript
+// replace current dictionary with the french one
+filter.loadDictionary('fr');
+
+// replace dictionary with the default one (same as filter.reset())
+filter.loadDictionary();
+```
+
 ### filter.list()
 
 ```javascript
