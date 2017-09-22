@@ -1,7 +1,8 @@
+var util = require('./module/Util')
 var wordDictionary = [];
-wordDictionary['default'] = require('../dictionary/default.json');
+wordDictionary['en'] = require('../dictionary/default.json');
 wordDictionary['fr'] = require('french-badwords-list').array;
-var words = JSON.parse(JSON.stringify(wordDictionary['default']));
+var words = util.clone(wordDictionary['en'])
 
 /**
  * LeoProfanity
@@ -66,46 +67,6 @@ var LeoProfanity = {
   },
 
   /**
-   * Get word dictionary
-   * Now, we only have default dictionary
-   * (private)
-   *
-   * @param {string} dictionaryName
-   * @returns {Array.string}
-   */
-  getDictionary: function(dictionaryName) {
-    var result = [];
-    if (wordDictionary[dictionaryName] !== 'undefined') {
-      result = JSON.parse(JSON.stringify(wordDictionary[dictionaryName]));
-    }
-
-    return result;
-  },
-
-  /**
-   * Load word dictionary to be used by the filter 
-   *
-   *
-   */
-  loadDictionary: function(dictionaryName) {
-    if (dictionaryName in wordDictionary) {
-      words = JSON.parse(JSON.stringify(this.getDictionary(dictionaryName)));
-    } else {
-      words = JSON.parse(JSON.stringify(this.getDictionary('default')));
-    }
-    
-  },
-
-  /**
-   * Return all profanity words
-   *
-   * @returns {Array.string}
-   */
-  list: function() {
-    return words;
-  },
-
-  /**
    * Sanitize string for this project
    * 1. Convert to lower case
    * 2. Replace comma and dot with space
@@ -120,6 +81,15 @@ var LeoProfanity = {
     str = str.replace(/\.|,/g, ' ');
 
     return str;
+  },
+  
+  /**
+   * Return current profanity words
+   *
+   * @returns {Array.string}
+   */
+  list: function() {
+    return words;
   },
 
   /**
@@ -228,11 +198,11 @@ var LeoProfanity = {
   },
 
   /**
-   * Reset word list by using default dictionary (also remove word that manually add)
+   * Reset word list by using en dictionary
+   * (also remove word that manually add)
    */
   reset: function() {
-    words = this.getDictionary('default');
-
+    this.loadDictionary('en');
     return this;
   },
 
@@ -244,7 +214,26 @@ var LeoProfanity = {
 
     return this;
   },
+  
+  /**
+   * Return word list from dictionary
+   *
+   * @param {string} [name=en] dictionary name
+   * @returns {Array.string}
+   */
+  getDictionary: function(name = 'en') {
+    name = (name in wordDictionary) ? name : 'en';
+    return wordDictionary[name]
+  },
 
+  /**
+   * Load word list from dictionary to using in the filter
+   *
+   * @param {string} [name=en]
+   */
+  loadDictionary: function(name = 'en') {
+    words = util.clone(this.getDictionary(name))
+  },
 };
 
 module.exports = LeoProfanity;

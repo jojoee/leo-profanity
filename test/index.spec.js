@@ -1,5 +1,5 @@
-/* global describe, it */
 var expect = require('chai').expect;
+const frenchBadwords = require('french-badwords-list').array;
 var filter = require('../src/index.js');
 
 describe('Profanity filter', function() {
@@ -47,7 +47,7 @@ describe('Profanity filter', function() {
     });
   });
 
-  describe('check', function() {
+  describe('clean', function() {
     it('should return empty string if param is empty string', function() {
       expect(filter.clean('')).to.equal('');
     });
@@ -92,7 +92,7 @@ describe('Profanity filter', function() {
       expect(filter.clean('I  hav   ,e BoOb,  ')).to.equal('I  hav   ,e ****,  ');
       expect(filter.clean(',I h  a.   v e BoOb.')).to.equal(',I h  a.   v e ****.');
     });
-  })
+  });
 
   describe('add', function() {
     it('should contain new word by given string', function() {
@@ -147,6 +147,41 @@ describe('Profanity filter', function() {
     it('should remove words in the list', function() {
       filter.clearList();
       expect(filter.list()).to.be.empty;
+    });
+  });
+
+  describe('getDictionary', function() {
+    it('should returns "en" word list', function() {
+      var result = filter.getDictionary()
+
+      expect(result).to.include('boob');
+      expect(result).to.include('boobs');
+    });
+
+    it('should returns "fr" word list', function() {
+      var result = filter.getDictionary('fr')
+
+      expect(result).to.include('1mb3c1l3');
+      expect(result).to.include('1mbec1l3');
+    });
+  });
+
+  describe('loadDictionary', function() {
+    it('should load "en" dictionary', function() {
+      filter.loadDictionary()
+
+      expect(filter.list()).to.include('boob');
+      expect(filter.list()).to.include('boobs');
+    });
+
+    it('should load "fr" dictionary', function() {
+      filter.loadDictionary('fr')
+
+      expect(filter.list()).to.include('1mb3c1l3');
+      expect(filter.list()).to.include('1mbec1l3');
+      expect(filter.check('bordel de merde')).to.be.true;
+      expect(filter.clean('bordel de merde')).to.eql('****** de *****');
+      expect(filter.list().length).to.equal(frenchBadwords.length)
     });
   });
 });
