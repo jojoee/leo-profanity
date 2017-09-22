@@ -22,6 +22,10 @@ bower install leo-profanity
 ## Example usage for npm
 
 ```javascript
+// support langs
+// - en
+// - fr
+
 var filter = require('leo-profanity');
 ```
 
@@ -189,6 +193,8 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Encapsulate private function
 - [ ] Order by alphabetical
 - [ ] Order by length
+- [ ] Release new version according to `loadDictionary` + French words
+- [ ] Release completed API, `getDictionary`
 
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
