@@ -221,7 +221,7 @@ Using above command to setup "semantic-release"
 ```
 
 ## Stats
-[![NPM](https://nodei.co/npm/leo-profanity.png?downloads=true&stars=true)](https://nodei.co/npm/leo-profanity/)
+[![NPM](https://nodei.co/npm/leo-profanity.png?downloads=true&stars=true)](https://nodei.co/npm/leo-profanity/) [![Greenkeeper badge](https://badges.greenkeeper.io/jojoee/leo-profanity.svg)](https://greenkeeper.io/)
 
 ## Reference
 - Inspired by [jwils0n/profanity-filter](https://github.com/jwils0n/profanity-filter)
