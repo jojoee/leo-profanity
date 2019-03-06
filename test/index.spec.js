@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 var expect = require('chai').expect;
 const frenchBadwords = require('french-badwords-list').array;
 var filter = require('../src/index.js');
