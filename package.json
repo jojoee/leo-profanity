@@ -42,7 +42,7 @@
     "test.watch": "npm t -- --watch",
     "validate": "npm run eslint && npm run coverage && npm run coverage.check",
     "setup": "npm install && npm run validate",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
