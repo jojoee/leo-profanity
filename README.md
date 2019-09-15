@@ -244,3 +244,4 @@ Using above command to setup "semantic-release"
   - http://www.cs.cmu.edu/~biglou/resources/bad-words.txt
 - Tool
   - [RegExr](http://regexr.com/)
+
