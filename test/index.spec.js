@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 var expect = require('chai').expect;
 const frenchBadwords = require('french-badwords-list').array;
 var filter = require('../src/index.js');
@@ -43,6 +44,11 @@ describe('check', function() {
 
   it('should not detect unspaced-word', function() {
     expect(filter.check('Buy classic watches online')).to.be.false;
+  });
+
+  // https://github.com/jojoee/leo-profanity/issues/10
+  it('should not detect .', function() {
+    expect(filter.check('.')).to.be.false;
   });
 });
 
@@ -90,6 +96,11 @@ describe('clean', function() {
   it('should detect multi-length-space and multi-space', function() {
     expect(filter.clean('I  hav   ,e BoOb,  ')).to.equal('I  hav   ,e ****,  ');
     expect(filter.clean(',I h  a.   v e BoOb.')).to.equal(',I h  a.   v e ****.');
+  });
+
+  // https://github.com/jojoee/leo-profanity/issues/10
+  it('should not detect .', function() {
+    expect(filter.clean('.')).to.equal('.');
   });
 });
 
