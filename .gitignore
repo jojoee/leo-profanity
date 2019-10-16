@@ -8,7 +8,6 @@ bower_components
 # Misc
 coverage
 .nyc_output
-yarn.lock
 .scannerwork
 
 # Backup
@@ -16,7 +15,10 @@ bk*
 
 # Log
 npm-debug.log
+
+# Lock
 package-lock.json
+yarn.lock
 
 # Mac
 **/.DS_Store

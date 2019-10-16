@@ -20,7 +20,7 @@ before_script:
 script:
   - npm run coverage
   - npm run coverage.check
-  - sonar-scanner
 after_success:
   - npm run coverage.report
+  - sonar-scanner
   - npm run semantic-release
