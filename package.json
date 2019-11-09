@@ -34,7 +34,7 @@
   },
   "scripts": {
     "commit": "git-cz",
-    "coverage": "nyc --reporter=lcov npm t",
+    "coverage": "nyc --reporter=lcov mocha test test/**/*.spec.js",
     "coverage.check": "nyc check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
     "eslint": "eslint src test --env mocha",

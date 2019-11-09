@@ -122,7 +122,7 @@ var LeoProfanity = {
   },
 
   /**
-   * Replace profanity words
+   * Internal proceeding method
    *
    * @todo improve algorithm
    * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
@@ -131,7 +131,7 @@ var LeoProfanity = {
    * @param {string} [replaceKey=*] one character only
    * @returns {string}
    */
-  clean: function(str, replaceKey) {
+  proceed: function(str, replaceKey) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
 
@@ -147,9 +147,11 @@ var LeoProfanity = {
     var resultArr = result.split(/(\s|,|\.)/);
 
     // loop through given string
+    var badWords = [];
     sanitizedArr.forEach(function(item, index) {
       if (words.includes(item)) {
         var replacementWord = self.getReplacementWord(replaceKey, item.length);
+        badWords.push(resultArr[index]);
         resultArr[index] = replacementWord;
       }
     });
@@ -157,41 +159,33 @@ var LeoProfanity = {
     // combine it
     result = resultArr.join('');
 
-    return result;
+    return [result, badWords];
   },
-/**
- * 
- * @param {string} str 
- * @returns {array}
- */
-  badWordsUsed: function(str) {
+
+  /**
+   * Replace profanity words
+   *
+   * @param {string} str
+   * @param {string} [replaceKey=*] one character only
+   * @returns {string}
+   */
+  clean: function(str, replaceKey) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
-
-    var self = this;
-    var originalString = str;
-    var result = str;
-
-    var sanitizedStr = this.sanitize(originalString);
-    // split by whitespace (keep delimiter)
-    // (cause comma and dot already replaced by whitespace)
-    var sanitizedArr = sanitizedStr.split(/(\s)/);
-    // split by whitespace, comma and dot (keep delimiter)
-    var resultArr = result.split(/(\s|,|\.)/);
-    
-    const badWords = [];
-
-    // loop through given string
-    sanitizedArr.forEach(function(item, index) {
-      if (words.includes(item)) {
-        var replacementWord = self.getReplacementWord(replaceKey, item.length);
-        badWords.push(resultArr[index]);
-      }
-    });
-
-    return badWords;
+    return this.proceed(str, replaceKey)[0];
   },
-  
+
+  /**
+   * Get list of used bad/profanity words
+   *
+   * @param {string} str 
+   * @returns {Array.string}
+   */
+  badWordsUsed: function(str) {
+    if (!str) return '';
+    return this.proceed(str, '*')[1];
+  },
+
   /**
    * Add word to the list
    *
