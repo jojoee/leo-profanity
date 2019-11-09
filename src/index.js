@@ -159,7 +159,39 @@ var LeoProfanity = {
 
     return result;
   },
+/**
+ * 
+ * @param {string} str 
+ * @returns {array}
+ */
+  badWordsUsed: function(str) {
+    if (!str) return '';
+    if (typeof replaceKey === 'undefined') replaceKey = '*';
 
+    var self = this;
+    var originalString = str;
+    var result = str;
+
+    var sanitizedStr = this.sanitize(originalString);
+    // split by whitespace (keep delimiter)
+    // (cause comma and dot already replaced by whitespace)
+    var sanitizedArr = sanitizedStr.split(/(\s)/);
+    // split by whitespace, comma and dot (keep delimiter)
+    var resultArr = result.split(/(\s|,|\.)/);
+    
+    const badWords = [];
+
+    // loop through given string
+    sanitizedArr.forEach(function(item, index) {
+      if (words.includes(item)) {
+        var replacementWord = self.getReplacementWord(replaceKey, item.length);
+        badWords.push(resultArr[index]);
+      }
+    });
+
+    return badWords;
+  },
+  
   /**
    * Add word to the list
    *
