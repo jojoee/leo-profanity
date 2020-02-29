@@ -201,7 +201,7 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
 - [x] PHP on [packagist.org/packages/jojoee/leo-profanity](https://packagist.org/packages/jojoee/leo-profanity)
-- [ ] Python on [PyPI](https://pypi.python.org/pypi)
+- [x] Python on [pypi.org/project/leoprofanity](https://pypi.org/project/leoprofanity)
 - [ ] Java on [Maven](https://maven.apache.org/)
 - [ ] Wordpress on [wordpress.org](https://wordpress.org/)
 
