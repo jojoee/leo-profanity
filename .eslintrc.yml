@@ -8,3 +8,4 @@ rules:
   space-before-function-paren: 0
   comma-dangle: 0
   one-var: 0
+  dot-notation: 0
