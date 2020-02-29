@@ -6,6 +6,14 @@ addons:
     organization: "jojoee"
     token:
       secure: "PX8r1nEds4uIKOOZHEIj0vMwx+2QC7fn75UNW83kVvu38t6V7r7z+hCzd64pqiI0WpHuu6Vwaf+Sv3BnxIbLRyiBbjjTiGu1V2NaeYHWNq11HQ+ZV7fsihjpihtJYiSBtGhSHBD+TQ1fpghJPrvThZJwXM6JjOWujUctkWf5zH9sS/iy8K7XmHg14dozKW8XyHW6z5uXlZVMXjccQUYu6+8CnJGNb+Im9IOA0w0n202WP47lY5jhW3cFMQfuR65cZbGb/tUmfWdeIC7QrCuYaC1/kKehhOrFYeuqFqdm9Ze5eb30dxCNKLTGy6+suTMxM86JlJje/ucaJEg9iYKuNpUObP6BlTqcAUCNeralVXneuwjcPVtknJap6SQVw7f4oQbQ37pOHI8ley+LsDkPBhzHHMj5SRF93aG+KpiAEg66TP6q68e2DksADsljkvL6u6KIUn+aS8Kgc4AYFpFd9kjG7ch0blrsYXozMLLn29RKAKIOCmuw2gDagZUPX2YVth+co1qCK+WBfqrZ5fTH9GUTp12gKsqLBvYBXBz6y7vRnnJrvasY2qU+KsrFMI0ODi0uaBB6UxZV7BJlBGriGXYRlzkwOACI9CfxogC/IyJAZra3GFCv/T056jbWcs+GaN+Cy8Rt042ioUGIesfmlU2JbnZXOchz74V8qVHGRB4="
+node_js:
+  - "7.0.0"
+  - "8.0.0"
+  - "9.0.0"
+  - "10.0.0"
+  - "11.0.0"
+  - "12.0.0"
+  - "13.0.0"
 cache:
   directories:
     - node_modules
