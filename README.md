@@ -48,11 +48,11 @@ filter.list();
 
 ### filter.check(string)
 
-Check out mor example on [filter.clean](https://github.com/jojoee/leo-profanity#filtercleanstring-replacekey)
+Check out more cases on [filter.clean](https://github.com/jojoee/leo-profanity#filtercleanstring-replacekey)
 
 ```javascript
 // output: true
-filter.clean('I have boob');
+filter.check('I have boob');
 ```
 
 ### filter.clean(string, [replaceKey=*])
