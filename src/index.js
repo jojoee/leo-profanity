@@ -82,7 +82,7 @@ var LeoProfanity = {
 
     return str;
   },
-  
+
   /**
    * Return current profanity words
    *
@@ -131,9 +131,10 @@ var LeoProfanity = {
    * @param {string} [replaceKey=*] one character only
    * @returns {string}
    */
-  proceed: function(str, replaceKey) {
+  proceed: function(str, replaceKey, nbLetters) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
+    if (typeof nbLetters === 'undefined') nbLetters = 0;
 
     var self = this;
     var originalString = str;
@@ -150,7 +151,7 @@ var LeoProfanity = {
     var badWords = [];
     sanitizedArr.forEach(function(item, index) {
       if (words.includes(item)) {
-        var replacementWord = self.getReplacementWord(replaceKey, item.length);
+        var replacementWord = item.slice(0, nbLetters) + self.getReplacementWord(replaceKey, item.length - nbLetters);
         badWords.push(resultArr[index]);
         resultArr[index] = replacementWord;
       }
@@ -169,16 +170,17 @@ var LeoProfanity = {
    * @param {string} [replaceKey=*] one character only
    * @returns {string}
    */
-  clean: function(str, replaceKey) {
+  clean: function(str, replaceKey, nbLetters) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
-    return this.proceed(str, replaceKey)[0];
+    if (typeof nbLetters === 'undefined') nbLetters = 0;
+    return this.proceed(str, replaceKey, nbLetters)[0];
   },
 
   /**
    * Get list of used bad/profanity words
    *
-   * @param {string} str 
+   * @param {string} str
    * @returns {Array.string}
    */
   badWordsUsed: function(str) {
@@ -241,7 +243,7 @@ var LeoProfanity = {
 
     return this;
   },
-  
+
   /**
    * Return word list from dictionary
    *
