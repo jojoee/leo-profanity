@@ -2,6 +2,8 @@ extends: standard
 plugins:
   - standard
   - promise
+env:
+  mocha: true
 rules:
   no-unneeded-ternary: 0
   semi: 0
