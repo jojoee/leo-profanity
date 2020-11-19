@@ -1,6 +1,9 @@
 # leo-profanity
 
-[![Travis](https://img.shields.io/travis/jojoee/leo-profanity.svg)](https://travis-ci.org/jojoee/leo-profanity)
+![continuous integration](https://github.com/jojoee/leo-profanity/workflows/continuous%20integration/badge.svg?branch=master)
+![release](https://github.com/jojoee/leo-profanity/workflows/release/badge.svg?branch=master)
+![runnable](https://github.com/jojoee/leo-profanity/workflows/runnable/badge.svg?branch=master)
+![runnable old node](https://github.com/jojoee/leo-profanity/workflows/runnable%20old%20node/badge.svg?branch=master)
 [![Codecov](https://img.shields.io/codecov/c/github/jojoee/leo-profanity.svg)](https://codecov.io/github/jojoee/leo-profanity)
 [![Version - npm](https://img.shields.io/npm/v/leo-profanity.svg)](https://www.npmjs.com/package/leo-profanity)
 [![License - npm](https://img.shields.io/npm/l/leo-profanity.svg)](http://opensource.org/licenses/MIT)
