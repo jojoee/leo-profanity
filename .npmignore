@@ -1,0 +1,22 @@
+# IDE & editor
+.idea
+!.vscode
+.editorconfig
+
+# lint
+.eslintrc.yml
+sonar-project.properties
+
+# CI
+.github
+
+# test
+.nyc_output
+coverage
+codecov.yaml
+
+# env
+.nvmrc
+
+# example
+example
