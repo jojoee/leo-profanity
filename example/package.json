@@ -1,6 +1,6 @@
 {
   "name": "leo-profanity-example",
   "dependencies": {
-    "leo-profanity": "^1.2.6"
+    "leo-profanity": "^1.3.0"
   }
 }
