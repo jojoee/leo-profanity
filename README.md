@@ -85,6 +85,10 @@ filter.clean('Buy classic watches online');
 // clean with custom replacement-character
 // output: I have ++++
 filter.clean('I have boob', '+');
+
+// support "clear letter" in the beginning of the word
+// output: I have bo++
+filter.clean('I have boob', '+', 2);
 ```
 
 ### filter.add(string|Array.string)

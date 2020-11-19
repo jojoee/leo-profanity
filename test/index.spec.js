@@ -102,6 +102,10 @@ describe('clean', function() {
   it('should not detect .', function() {
     expect(filter.clean('.')).to.equal('.');
   });
+
+  it('should show "clear letter" in the beginning of the word', function() {
+    expect(filter.clean('I have boob', '+', 2)).to.equal('I have bo++');
+  })
 });
 
 describe('add', function() {

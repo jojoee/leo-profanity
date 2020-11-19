@@ -129,6 +129,7 @@ var LeoProfanity = {
    *
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
+   * @param {string} [nbLetters=0] number of ignoring letters from the beginning
    * @returns {string}
    */
   proceed: function(str, replaceKey, nbLetters) {
@@ -168,6 +169,7 @@ var LeoProfanity = {
    *
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
+   * @param {string} [nbLetters=0] number of ignoring letters from the beginning
    * @returns {string}
    */
   clean: function(str, replaceKey, nbLetters) {
