@@ -17,6 +17,13 @@ Profanity filter, based on "Shutterstock" dictionary
 // npm
 npm install leo-profanity
 
+// yarn
+yarn add leo-profanity
+
+// Installing without french bad words
+npm install leo-profanity --no-optional
+yarn add leo-profanity --ignore-optional
+
 // Bower
 bower install leo-profanity
 // dictionary/default.json
