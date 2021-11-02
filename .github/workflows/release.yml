@@ -4,8 +4,8 @@ on:
   workflow_run:
     workflows: ["continuous integration"]
     branches: [master]
-    types: 
-    - completed
+    types:
+      - completed
 
 jobs:
   release:
@@ -15,13 +15,13 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
