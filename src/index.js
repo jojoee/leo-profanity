@@ -1,7 +1,6 @@
 var util = require('./module/Util')
 var wordDictionary = [];
 wordDictionary['en'] = require('../dictionary/default.json');
-
 try {
   wordDictionary['fr'] = require('french-badwords-list').array;
 } catch (e) {}
@@ -19,7 +18,7 @@ var LeoProfanity = {
    *
    * @param {string} str
    */
-  removeWord: function(str) {
+  removeWord: function (str) {
     var index = words.indexOf(str);
 
     if (index !== -1) {
@@ -35,7 +34,7 @@ var LeoProfanity = {
    *
    * @param {string} str
    */
-  addWord: function(str) {
+  addWord: function (str) {
     if (words.indexOf(str) === -1) {
       words.push(str);
     }
@@ -59,7 +58,7 @@ var LeoProfanity = {
    * @param {number} n
    * @returns string
    */
-  getReplacementWord: function(key, n) {
+  getReplacementWord: function (key, n) {
     var i = 0;
     var replacementWord = '';
 
@@ -79,7 +78,7 @@ var LeoProfanity = {
    * @param {string} str
    * @returns {string}
    */
-  sanitize: function(str) {
+  sanitize: function (str) {
     str = str.toLowerCase();
     /* eslint-disable */
     str = str.replace(/\.|,/g, ' ');
@@ -92,7 +91,7 @@ var LeoProfanity = {
    *
    * @returns {Array.string}
    */
-  list: function() {
+  list: function () {
     return words;
   },
 
@@ -107,7 +106,7 @@ var LeoProfanity = {
    * @param {string} str
    * @returns {boolean}
    */
-  check: function(str) {
+  check: function (str) {
     if (!str) return false;
 
     var i = 0;
@@ -136,7 +135,7 @@ var LeoProfanity = {
    * @param {string} [nbLetters=0] number of ignoring letters from the beginning
    * @returns {string}
    */
-  proceed: function(str, replaceKey, nbLetters) {
+  proceed: function (str, replaceKey, nbLetters) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
     if (typeof nbLetters === 'undefined') nbLetters = 0;
@@ -154,7 +153,7 @@ var LeoProfanity = {
 
     // loop through given string
     var badWords = [];
-    sanitizedArr.forEach(function(item, index) {
+    sanitizedArr.forEach(function (item, index) {
       if (words.includes(item)) {
         var replacementWord = item.slice(0, nbLetters) + self.getReplacementWord(replaceKey, item.length - nbLetters);
         badWords.push(resultArr[index]);
@@ -176,7 +175,7 @@ var LeoProfanity = {
    * @param {string} [nbLetters=0] number of ignoring letters from the beginning
    * @returns {string}
    */
-  clean: function(str, replaceKey, nbLetters) {
+  clean: function (str, replaceKey, nbLetters) {
     if (!str) return '';
     if (typeof replaceKey === 'undefined') replaceKey = '*';
     if (typeof nbLetters === 'undefined') nbLetters = 0;
@@ -189,7 +188,7 @@ var LeoProfanity = {
    * @param {string} str
    * @returns {Array.string}
    */
-  badWordsUsed: function(str) {
+  badWordsUsed: function (str) {
     if (!str) return '';
     return this.proceed(str, '*')[1];
   },
@@ -199,13 +198,13 @@ var LeoProfanity = {
    *
    * @param {string|Array.string} data
    */
-  add: function(data) {
+  add: function (data) {
     var self = this;
 
     if (typeof data === 'string') {
       self.addWord(data);
     } else if (data.constructor === Array) {
-      data.forEach(function(word) {
+      data.forEach(function (word) {
         self.addWord(word);
       });
     }
@@ -218,13 +217,13 @@ var LeoProfanity = {
    *
    * @param {string|Array.string} data
    */
-  remove: function(data) {
+  remove: function (data) {
     var self = this;
 
     if (typeof data === 'string') {
       self.removeWord(data);
     } else if (data.constructor === Array) {
-      data.forEach(function(word) {
+      data.forEach(function (word) {
         self.removeWord(word);
       });
     }
@@ -236,7 +235,7 @@ var LeoProfanity = {
    * Reset word list by using en dictionary
    * (also remove word that manually add)
    */
-  reset: function() {
+  reset: function () {
     this.loadDictionary('en');
     return this;
   },
@@ -244,7 +243,7 @@ var LeoProfanity = {
   /**
    * Clear word list
    */
-  clearList: function() {
+  clearList: function () {
     words = [];
 
     return this;
@@ -256,7 +255,7 @@ var LeoProfanity = {
    * @param {string} [name=en] dictionary name
    * @returns {Array.string}
    */
-  getDictionary: function(name = 'en') {
+  getDictionary: function (name = 'en') {
     name = (name in wordDictionary) ? name : 'en';
     return wordDictionary[name]
   },
@@ -266,7 +265,7 @@ var LeoProfanity = {
    *
    * @param {string} [name=en]
    */
-  loadDictionary: function(name = 'en') {
+  loadDictionary: function (name = 'en') {
     words = util.clone(this.getDictionary(name))
   },
 };

@@ -8,7 +8,7 @@ var Util = {
    * @param {Object} obj
    * @returns {Object}
    */
-  clone: function(obj) {
+  clone: function (obj) {
     return JSON.parse(JSON.stringify(obj))
   }
 }

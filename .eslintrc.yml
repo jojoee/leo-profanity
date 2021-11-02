@@ -7,7 +7,7 @@ env:
 rules:
   no-unneeded-ternary: 0
   semi: 0
-  space-before-function-paren: 0
+  space-before-function-paren: 1
   comma-dangle: 0
   one-var: 0
   dot-notation: 0
