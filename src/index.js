@@ -1,7 +1,11 @@
 var util = require('./module/Util')
 var wordDictionary = [];
 wordDictionary['en'] = require('../dictionary/default.json');
-wordDictionary['fr'] = require('french-badwords-list').array;
+
+try {
+  wordDictionary['fr'] = require('french-badwords-list').array;
+} catch (e) {}
+
 var words = util.clone(wordDictionary['en'])
 
 /**

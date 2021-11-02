@@ -68,7 +68,7 @@
     "url": "https://github.com/jojoee/leo-profanity/issues"
   },
   "homepage": "https://github.com/jojoee/leo-profanity#readme",
-  "dependencies": {
+  "optionalDependencies": {
     "french-badwords-list": "^1.0.5"
   }
 }
