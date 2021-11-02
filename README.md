@@ -4,6 +4,7 @@
 ![release](https://github.com/jojoee/leo-profanity/workflows/release/badge.svg?branch=master)
 ![runnable](https://github.com/jojoee/leo-profanity/workflows/runnable/badge.svg?branch=master)
 ![runnable old node](https://github.com/jojoee/leo-profanity/workflows/runnable%20old%20node/badge.svg?branch=master)
+![runnable without optional dependencies](https://github.com/jojoee/leo-profanity/workflows/runnable%20without%20optional%20dependencies/badge.svg?branch=master)
 [![Codecov](https://img.shields.io/codecov/c/github/jojoee/leo-profanity.svg)](https://codecov.io/github/jojoee/leo-profanity)
 [![Version - npm](https://img.shields.io/npm/v/leo-profanity.svg)](https://www.npmjs.com/package/leo-profanity)
 [![License - npm](https://img.shields.io/npm/l/leo-profanity.svg)](http://opensource.org/licenses/MIT)
@@ -16,13 +17,11 @@ Profanity filter, based on "Shutterstock" dictionary
 ```
 // npm
 npm install leo-profanity
+npm install leo-profanity --no-optional # install only English bad word dictionary
 
 // yarn
 yarn add leo-profanity
-
-// Installing without french bad words
-npm install leo-profanity --no-optional
-yarn add leo-profanity --ignore-optional
+yarn add leo-profanity --ignore-optional # install only English bad word dictionary
 
 // Bower
 bower install leo-profanity
