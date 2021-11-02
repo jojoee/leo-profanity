@@ -210,6 +210,7 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Release completed API, `getDictionary`
 - [ ] Unit test of `proceed` method
 - [ ] Unit test of `badWordsUsed` method
+- [x] Make other dictionaries optional (only English is a mandatory dictionary)
 
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
