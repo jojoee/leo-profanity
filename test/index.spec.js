@@ -4,6 +4,10 @@ let frenchBadwords;
 try {
   frenchBadwords = require('french-badwords-list').array;
 } catch (e) {}
+let russianBadwords;
+try {
+  russianBadwords = require('russian-bad-words').flatWords;
+} catch (e) {}
 var filter = require('../src/index.js');
 
 describe('list', function () {
@@ -183,6 +187,14 @@ describe('getDictionary', function () {
       expect(result).to.include('1mbec1l3');
     });
   }
+
+  if (russianBadwords) {
+    it('should returns "ru" word list', function () {
+      var result = filter.getDictionary('ru')
+
+      expect(result).to.include('хуй');
+    });
+  }
 });
 
 describe('loadDictionary', function () {
@@ -202,6 +214,17 @@ describe('loadDictionary', function () {
       expect(filter.check('bordel de merde')).to.be.true;
       expect(filter.clean('bordel de merde')).to.eql('****** de *****');
       expect(filter.list().length).to.equal(frenchBadwords.length)
+    });
+  }
+
+  if (russianBadwords) {
+    it('should load "ru" dictionary', function () {
+      filter.loadDictionary('ru')
+
+      expect(filter.list()).to.include('хуй');
+      expect(filter.check('долбоёб пошёл в пизду')).to.be.true;
+      expect(filter.clean('долбоёб пошёл в пизду')).to.eql('******* пошёл в *****');
+      expect(filter.list().length).to.equal(russianBadwords.length)
     });
   }
 });
