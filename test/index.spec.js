@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 var expect = require('chai').expect;
 var filter = require('../src/index.js');
+const enWordDictionary = require('../dictionary/default.json')
 
 // optional dictionaries
 const wordDictionary = {}
@@ -208,8 +209,12 @@ describe('getDictionary', function () {
   it('should returns "en" word list', function () {
     var result = filter.getDictionary()
 
+    // contains words
     expect(result).to.include('boob');
     expect(result).to.include('boobs');
+
+    // number of words
+    expect(result.length).to.equal(enWordDictionary.length);
   });
 
   if (wordDictionary['fr']) {
