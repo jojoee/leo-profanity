@@ -7,6 +7,30 @@ const wordDictionary = {}
 try { wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
 try { wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
 
+describe('removeWord', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
+});
+
+describe('removeWord', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
+});
+
+describe('getReplacementWord', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
+});
+
+describe('sanitize', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
+});
+
 describe('list', function () {
   it('should contain boob word', function () {
     expect(filter.list()).to.include('boob');
@@ -53,6 +77,12 @@ describe('check', function () {
   // https://github.com/jojoee/leo-profanity/issues/10
   it('should not detect .', function () {
     expect(filter.check('.')).to.be.false;
+  });
+});
+
+describe('proceed', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
   });
 });
 
@@ -110,6 +140,12 @@ describe('clean', function () {
   it('should show "clear letter" in the beginning of the word', function () {
     expect(filter.clean('I have boob', '+', 2)).to.equal('I have bo++');
   })
+});
+
+describe('badWordsUsed', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
 });
 
 describe('add', function () {
