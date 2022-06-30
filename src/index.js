@@ -195,7 +195,7 @@ var LeoProfanity = {
    * @returns {Array.string}
    */
   badWordsUsed: function (str) {
-    if (!str) return '';
+    if (!str) return [];
     return this.proceed(str, '*')[1];
   },
 
