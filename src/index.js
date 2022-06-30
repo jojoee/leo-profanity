@@ -89,6 +89,7 @@ var LeoProfanity = {
 
   /**
    * Return current profanity words
+   * (public)
    *
    * @returns {Array.string}
    */
@@ -99,7 +100,8 @@ var LeoProfanity = {
   /**
    * Check the string contain profanity words or not
    * Approach, to make it fast ASAP
-   *
+   * (public)
+   * 
    * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
    * @see http://stackoverflow.com/questions/6116474/how-to-find-if-an-array-contains-a-specific-string-in-javascript-jquery
    * @see http://stackoverflow.com/questions/9141951/splitting-string-by-whitespace-without-empty-elements
@@ -127,6 +129,7 @@ var LeoProfanity = {
 
   /**
    * Internal proceeding method
+   * (private)
    *
    * @todo improve algorithm
    * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
@@ -170,7 +173,8 @@ var LeoProfanity = {
 
   /**
    * Replace profanity words
-   *
+   * (public)
+   * 
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
    * @param {string} [nbLetters=0] number of ignoring letters from the beginning
@@ -185,7 +189,8 @@ var LeoProfanity = {
 
   /**
    * Get list of used bad/profanity words
-   *
+   * (public)
+   * 
    * @param {string} str
    * @returns {Array.string}
    */
@@ -196,7 +201,8 @@ var LeoProfanity = {
 
   /**
    * Add word to the list
-   *
+   * (public)
+   * 
    * @param {string|Array.string} data
    */
   add: function (data) {
@@ -215,7 +221,8 @@ var LeoProfanity = {
 
   /**
    * Remove word from the list
-   *
+   * (public)
+   * 
    * @param {string|Array.string} data
    */
   remove: function (data) {
@@ -235,6 +242,7 @@ var LeoProfanity = {
   /**
    * Reset word list by using en dictionary
    * (also remove word that manually add)
+   * (public)
    */
   reset: function () {
     this.loadDictionary('en');
@@ -243,6 +251,8 @@ var LeoProfanity = {
 
   /**
    * Clear word list
+   * (public)
+   * 
    */
   clearList: function () {
     words = [];
@@ -252,6 +262,7 @@ var LeoProfanity = {
 
   /**
    * Return word list from dictionary
+   * (public)
    *
    * @param {string} [name=en] dictionary name
    * @returns {Array.string}
@@ -263,8 +274,8 @@ var LeoProfanity = {
 
   /**
    * Add dictionary
-   *
    * TODO: complete it
+   *
    * @param {string} name
    * @param {Array.string} data
    */
@@ -274,6 +285,7 @@ var LeoProfanity = {
 
   /**
    * Load word list from dictionary to using in the filter
+   * (public)
    *
    * @param {string} [name=en]
    */
