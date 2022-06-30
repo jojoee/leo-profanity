@@ -152,7 +152,7 @@ describe('badWordsUsed', function () {
     expect(filter.badWordsUsed('I have 2 eyes')).to.deep.equal([])
   });
 
-  it('should replace profanity word with *', function () {
+  it('should found profanity word', function () {
     // normal case
     expect(filter.badWordsUsed('I have boob, etc.')).to.deep.equal(['boob']);
 
