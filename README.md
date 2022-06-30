@@ -183,7 +183,7 @@ Disadvantage:
   e.g. Clbuttic mistake (filter mistake)
 ```
 
-Summary
+### Summary
 - We don't know all methods that can produce profanity word
   (e.g. how many different ways can you enter a55 ?)
 - There have a non-algorithm-based approach to achieve it (yet)
@@ -192,25 +192,6 @@ Summary
 
 So, this project decide to go with 1.1, 1.3 and 2.1.
 (*note - you can found other attempts in "Reference" section)
-
-## TODO
-- [x] `add` method
-- [ ] Filter html syntax
-- [ ] Support multi-language
-- [x] Complete `clean` API
-- [x] Increase code coverage percentage
-- [x] Fix ESLint
-- [ ] Demo page
-- [ ] More word dictionary
-- [ ] `setDictionary` function
-- [ ] Encapsulate private function
-- [ ] Order by alphabetical
-- [ ] Order by length
-- [ ] Release new version according to `loadDictionary` + French words
-- [ ] Release completed API, `getDictionary`
-- [ ] Unit test of `proceed` method
-- [ ] Unit test of `badWordsUsed` method
-- [x] Make other dictionaries optional (only English is a mandatory dictionary)
 
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
