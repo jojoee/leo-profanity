@@ -31,9 +31,10 @@ bower install leo-profanity
 ## Example usage for npm
 
 ```javascript
-// support langs
+// support languages
 // - en
 // - fr
+// - ru
 
 var filter = require('leo-profanity');
 ```
@@ -46,6 +47,16 @@ filter.loadDictionary('fr');
 
 // replace dictionary with the default one (same as filter.reset())
 filter.loadDictionary();
+```
+
+### filter.getDictionary(string)
+
+```javascript
+// returns words in en dictionary
+filter.getDictionary();
+
+// returns words in fr dictionary
+filter.getDictionary('fr');
 ```
 
 ### filter.list()
@@ -98,6 +109,34 @@ filter.clean('I have boob', '+');
 // support "clear letter" in the beginning of the word
 // output: I have bo++
 filter.clean('I have boob', '+', 2);
+```
+
+### filter.badWordsUsed(string)
+
+```javascript
+// should return original string if string not contain profanity word
+// output: []
+filter.badWordsUsed('I have 2 eyes')
+
+// should found profanity word
+// output: ['zoophilia']
+filter.badWordsUsed('lorem zoophilia ipsum')
+
+// should detect case sensitive
+// output: ['BoOb']
+filter.badWordsUsed('I have BoOb')
+
+// should detect multi occurrence
+// output: ['boob', 'boob', 'ass']
+filter.badWordsUsed('I have boob,boob, ass, and etc.')
+
+// should not detect unspaced-word
+// output: []
+filter.badWordsUsed('Buy classic watches online')
+
+// should detect multi-length-space and multi-space
+// output: ['BoOb']
+filter.badWordsUsed(',I h  a.   v e BoOb.')
 ```
 
 ### filter.add(string|Array.string)
