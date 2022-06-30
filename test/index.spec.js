@@ -230,6 +230,12 @@ describe('getDictionary', function () {
   }
 });
 
+describe('addDictionary', function () {
+  it('should return valid result', function () {
+    // TODO: complete it
+  });
+});
+
 describe('loadDictionary', function () {
   it('should load "en" dictionary', function () {
     filter.loadDictionary()

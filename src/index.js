@@ -262,6 +262,17 @@ var LeoProfanity = {
   },
 
   /**
+   * Add dictionary
+   *
+   * TODO: complete it
+   * @param {string} name
+   * @param {Array.string} data
+   */
+  addDictionary: function (name, data) {
+
+  },
+
+  /**
    * Load word list from dictionary to using in the filter
    *
    * @param {string} [name=en]
