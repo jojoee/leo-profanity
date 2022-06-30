@@ -144,8 +144,53 @@ describe('clean', function () {
 });
 
 describe('badWordsUsed', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+  it('should return empty string if param is empty string', function () {
+    expect(filter.badWordsUsed('')).to.deep.equal([])
+  });
+
+  it('should return original string if string not contain profanity word', function () {
+    expect(filter.badWordsUsed('I have 2 eyes')).to.deep.equal([])
+  });
+
+  it('should replace profanity word with *', function () {
+    // normal case
+    expect(filter.badWordsUsed('I have boob, etc.')).to.deep.equal(['boob']);
+
+    // first & last
+    expect(filter.badWordsUsed('2g1c')).to.deep.equal(['2g1c']);
+    expect(filter.badWordsUsed('zoophilia')).to.deep.equal(['zoophilia']);
+    expect(filter.badWordsUsed('lorem 2g1c ipsum')).to.deep.equal(['2g1c']);
+    expect(filter.badWordsUsed('lorem zoophilia ipsum')).to.deep.equal(['zoophilia']);
+  });
+
+  it('should detect case sensitive', function () {
+    expect(filter.badWordsUsed('I have BoOb')).to.deep.equal(['BoOb']);
+  });
+
+  it('should detect dot and comma', function () {
+    expect(filter.badWordsUsed('I have BoOb,')).to.deep.equal(['BoOb']);
+    expect(filter.badWordsUsed('I have BoOb.')).to.deep.equal(['BoOb']);
+  });
+
+  it('should detect multi occurrence', function () {
+    expect(filter.badWordsUsed('I have boob,boob, ass, and etc.')).to.deep.equal([
+      'boob',
+      'boob',
+      'ass'
+    ]);
+  });
+
+  it('should not detect unspaced-word', function () {
+    expect(filter.badWordsUsed('Buy classic watches online')).to.deep.equal([]);
+  });
+
+  it('should detect multi-length-space and multi-space', function () {
+    expect(filter.badWordsUsed('I  hav   ,e BoOb,  ')).to.deep.equal(['BoOb']);
+    expect(filter.badWordsUsed(',I h  a.   v e BoOb.')).to.deep.equal(['BoOb']);
+  });
+
+  it('should not detect .', function () {
+    expect(filter.badWordsUsed('.')).to.deep.equal([]);
   });
 });
 
