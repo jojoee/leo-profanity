@@ -1,10 +1,14 @@
 /**
  * LeoProfanity
+ *
+ * @constructor
  */
 var Util = {
+
   /**
    * Quick clone object
    *
+   * @private
    * @param {Object} obj
    * @returns {Object}
    */

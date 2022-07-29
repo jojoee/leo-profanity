@@ -9,12 +9,14 @@
   "devDependencies": {
     "chai": "4.2.0",
     "codecov": "3.7.1",
+    "docdash": "^1.2.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "jsdoc": "^3.6.11",
     "mocha": "^7.1.0",
     "nyc": "^15.0.0"
   },
@@ -22,6 +24,7 @@
     "coverage": "nyc --reporter=lcov mocha test test/**/*.spec.js",
     "coverage.check": "nyc check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
+    "doc.generate": "jsdoc -c jsdoc.json -d doc ./src/index.js -r",
     "eslint": "eslint src test --env mocha",
     "eslint.fix": "eslint src test --env mocha --fix",
     "test": "mocha test test/**/*.spec.js",

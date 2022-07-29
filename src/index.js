@@ -10,14 +10,16 @@ var words = util.clone(wordDictionary['en'])
 
 /**
  * LeoProfanity
+ *
+ * @constructor
  */
 var LeoProfanity = {
 
   /**
    * Remove word from the list
-   * (private)
    *
-   * @param {string} str
+   * @private
+   * @param {string} str - word
    */
   removeWord: function (str) {
     var index = words.indexOf(str);
@@ -31,9 +33,9 @@ var LeoProfanity = {
 
   /**
    * Add word into the list
-   * (private)
    *
-   * @param {string} str
+   * @private
+   * @param {string} str - word
    */
   addWord: function (str) {
     if (words.indexOf(str) === -1) {
@@ -45,16 +47,15 @@ var LeoProfanity = {
 
   /**
    * Return replacement word from key
-   * (private)
    *
    * @example
+   * // output: '***'
    * getReplacementWord('*', 3)
-   * return '***'
    *
-   * @example
+   * // output: '----'
    * getReplacementWord('-', 4)
-   * return '----'
    *
+   * @private
    * @param {string} key
    * @param {number} n
    * @returns string
@@ -74,8 +75,8 @@ var LeoProfanity = {
    * Sanitize string for this project
    * 1. Convert to lower case
    * 2. Replace comma and dot with space
-   * (private)
    *
+   * @private
    * @param {string} str
    * @returns {string}
    */
@@ -88,9 +89,12 @@ var LeoProfanity = {
   },
 
   /**
-   * Return current profanity words
-   * (public)
+   * Return all current profanity words
    *
+   * @example
+   * filter.list();
+   * 
+   * @public
    * @returns {Array.string}
    */
   list: function () {
@@ -99,13 +103,17 @@ var LeoProfanity = {
 
   /**
    * Check the string contain profanity words or not
-   * Approach, to make it fast ASAP
-   * (public)
+   * Approach, to make it fast ASAP.
+   * Check out more cases on "clean" method
    * 
+   * @example
+   * // output: true
+   * filter.check('I have boob');
+   *
    * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
    * @see http://stackoverflow.com/questions/6116474/how-to-find-if-an-array-contains-a-specific-string-in-javascript-jquery
    * @see http://stackoverflow.com/questions/9141951/splitting-string-by-whitespace-without-empty-elements
-   *
+   * @public
    * @param {string} str
    * @returns {boolean}
    */
@@ -129,11 +137,10 @@ var LeoProfanity = {
 
   /**
    * Internal proceeding method
-   * (private)
    *
    * @todo improve algorithm
    * @see http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
-   *
+   * @private
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
    * @param {string} [nbLetters=0] number of ignoring letters from the beginning
@@ -173,8 +180,41 @@ var LeoProfanity = {
 
   /**
    * Replace profanity words
-   * (public)
    * 
+   * @example
+   * // no bad word
+   * // output: I have 2 eyes
+   * filter.clean('I have 2 eyes');
+   * 
+   * // normal case
+   * // output: I have ****, etc.
+   * filter.clean('I have boob, etc.');
+   * 
+   * // case sensitive
+   * // output: I have ****
+   * filter.clean('I have BoOb');
+   * 
+   * // separated by comma and dot
+   * // output: I have ****.
+   * filter.clean('I have BoOb.');
+   * 
+   * // multi occurrence
+   * // output: I have ****,****, ***, and etc.
+   * filter.clean('I have boob,boob, ass, and etc.');
+   * 
+   * // should not detect unspaced-word
+   * // output: Buy classic watches online
+   * filter.clean('Buy classic watches online');
+   * 
+   * // clean with custom replacement-character
+   * // output: I have ++++
+   * filter.clean('I have boob', '+');
+   * 
+   * // support "clear letter" in the beginning of the word
+   * // output: I have bo++
+   * filter.clean('I have boob', '+', 2);
+   * 
+   * @public
    * @param {string} str
    * @param {string} [replaceKey=*] one character only
    * @param {string} [nbLetters=0] number of ignoring letters from the beginning
@@ -189,8 +229,33 @@ var LeoProfanity = {
 
   /**
    * Get list of used bad/profanity words
-   * (public)
    * 
+   * @example
+   * // should return original string if string not contain profanity word
+   * // output: []
+   * filter.badWordsUsed('I have 2 eyes')
+   * 
+   * // should found profanity word
+   * // output: ['zoophilia']
+   * filter.badWordsUsed('lorem zoophilia ipsum')
+   * 
+   * // should detect case sensitive
+   * // output: ['BoOb']
+   * filter.badWordsUsed('I have BoOb')
+   * 
+   * // should detect multi occurrence
+   * // output: ['boob', 'boob', 'ass']
+   * filter.badWordsUsed('I have boob,boob, ass, and etc.')
+   * 
+   * // should not detect unspaced-word
+   * // output: []
+   * filter.badWordsUsed('Buy classic watches online')
+   * 
+   * // should detect multi-length-space and multi-space
+   * // output: ['BoOb']
+   * filter.badWordsUsed(',I h  a.   v e BoOb.')
+   *
+   * @public
    * @param {string} str
    * @returns {Array.string}
    */
@@ -201,8 +266,16 @@ var LeoProfanity = {
 
   /**
    * Add word to the list
-   * (public)
    * 
+   * @example
+   * // add word
+   * filter.add('b00b');
+   * 
+   * // add word's array
+   * // check duplication automatically
+   * filter.add(['b00b', 'b@@b']);
+   * 
+   * @public
    * @param {string|Array.string} data
    */
   add: function (data) {
@@ -221,8 +294,15 @@ var LeoProfanity = {
 
   /**
    * Remove word from the list
-   * (public)
    * 
+   * @example
+   * // remove word
+   * filter.remove('b00b');
+   * 
+   * // remove word's array
+   * filter.remove(['b00b', 'b@@b']);
+   *
+   * @public
    * @param {string|Array.string} data
    */
   remove: function (data) {
@@ -242,7 +322,8 @@ var LeoProfanity = {
   /**
    * Reset word list by using en dictionary
    * (also remove word that manually add)
-   * (public)
+   * 
+   * @public
    */
   reset: function () {
     this.loadDictionary('en');
@@ -250,9 +331,9 @@ var LeoProfanity = {
   },
 
   /**
-   * Clear word list
-   * (public)
-   * 
+   * Clear all words in the list
+   *
+   * @public
    */
   clearList: function () {
     words = [];
@@ -262,8 +343,15 @@ var LeoProfanity = {
 
   /**
    * Return word list from dictionary
-   * (public)
    *
+   * @example
+   * // returns words in en dictionary
+   * filter.getDictionary();
+   * 
+   * // returns words in fr dictionary
+   * filter.getDictionary('fr');
+   * 
+   * @public
    * @param {string} [name=en] dictionary name
    * @returns {Array.string}
    */
@@ -274,8 +362,9 @@ var LeoProfanity = {
 
   /**
    * Add dictionary
-   * TODO: complete it
    *
+   * @todo complete it
+   * @private
    * @param {string} name
    * @param {Array.string} data
    */
@@ -285,8 +374,15 @@ var LeoProfanity = {
 
   /**
    * Load word list from dictionary to using in the filter
-   * (public)
    *
+   * @example
+   * // replace current dictionary with the french one
+   * filter.loadDictionary('fr');
+   * 
+   * // replace dictionary with the default one (same as filter.reset())
+   * filter.loadDictionary();
+   *
+   * @public
    * @param {string} [name=en]
    */
   loadDictionary: function (name = 'en') {

@@ -1,0 +1,22 @@
+{
+  "tags": {
+    "allowUnknownTags": false
+  },
+  "opts": {
+    "template": "node_modules/docdash",
+    "encoding": "utf8",
+    "destination": "doc/",
+    "recurse": true,
+    "verbose": true
+  },
+  "source": {
+    "include": [
+      "src/module/Util.js"
+    ],
+    "excludePattern": "(node_modules/|doc)"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  }
+}
