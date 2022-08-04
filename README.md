@@ -115,26 +115,6 @@ So, this project decide to go with 1.1, 1.3 and 2.1.
 - [ ] Java on [Maven](https://maven.apache.org/)
 - [ ] Wordpress on [wordpress.org](https://wordpress.org/)
 
-## Contribute
-1. Fork the repo
-2. Install Node.js and dependencies
-3. Make a branch for your change and make your changes
-4. Run `git add -A` to add your changes
-5. Run `npm run commit` (don't use `git commit`)
-6. Push your changes with `git push` then create Pull Request
-
-## Contribute for owner
-
-```
-$ npm install -g semantic-release-cli
-$ semantic-release-cli setup
-
-Using above command to setup "semantic-release"
-```
-
-## Stats
-[![NPM](https://nodei.co/npm/leo-profanity.png?downloads=true&stars=true)](https://nodei.co/npm/leo-profanity/) [![Greenkeeper badge](https://badges.greenkeeper.io/jojoee/leo-profanity.svg)](https://greenkeeper.io/)
-
 ## Reference
 - Inspired by [jwils0n/profanity-filter](https://github.com/jwils0n/profanity-filter)
 - Algorithm / Discussion
