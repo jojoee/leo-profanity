@@ -51,63 +51,76 @@ This project decide to split it into 2 parts,  `Sanitize` and `Filter`
 and these below is a interesting algorithms.
 
 ### Sanitize
-```
-Attempt 1 (1.1): convert all into lower string
-Advantage:
-  - simple
-Disadvantage:
-  - none
 
-Attempt 2 (1.2): turn "similar-like" symbol to alphabet
-e.g. convert `@` to `a`, `5` and `$` to `s`
+```
+Attempt 1 (1.1): Convert all into lowercase string
+Example:
+- "SomeThing" to "something"
 Advantage:
-  - simple + detect some trick word (e.g. @ss, b00b)
-Disadvantage:
-  - "false positive"
-  - limit user imagination (user cannot play with word)
-  e.g. joe@ssociallife.com
+- Simple to understand
+- Simple to implement
+Disadvantage or Caution:
+- Will ignore "case sensitive" word
+
+Attempt 2 (1.2): Turn "similar-like" symbol to alphabet
+Example:
+- "@" to "a"
+- "5" or "$" to "s"
+- "@ss" to "ass"
+- "b00b" to "boob"
+- "a$$a$$in" to "assassin"
+Advantage:
+- Detect some trick words
+Disadvantage or Caution:
+- False positive
+- Subjective, which depends on each person think about the symbol
+- Limit user imagination (user cannot play with word)
+  e.g. "joe@ssociallife.com"
   e.g. user want to try something funny like "a$$a$$in"
 
-Attempt 3 (1.3): replace `.` and `,` with space to separate words
-in some sentence, people usually using `.` and `,` to connect / end the sentence
+Attempt 3 (1.3): Replace "." and "," with space to separate words
+In some sentence, people usually using "." and "," to connect or end the sentence
+Example:
+- "I like a55,b00b.t1ts" to "I like a55 b00b t1ts"
 Advantage:
-  - increase founding possibility
-  e.g. I like a55,b00b
-Disadvantage:
-  - none
+- Increase founding possibility e.g. "I like a55,b00b.t1ts"
+Disadvantage or Caution:
+- Disconnect some words e.g. "john.doe@gmail.com"
 ```
 
 ### Filter
-```
-Attempt 1 (2.1): split into array (or using regex, somehow)
-using space to split it into array then check by profanity word list
-Advantage:
-  - simple
-Disadvantage:
-  - need proper list
-  - some "false positive"
-  e.g. Great tit (https://en.wikipedia.org/wiki/Great_tit)
 
-Attempt 2 (2.2): filter word inside (with or without space)
-detect all alphabet that contain "profanity word" (e.g. `thistextisfunnyboobsanda55`)
+```
+Attempt 1 (2.1): Split into array (or using regex)
+Using space to split "word string" into "word array" then check by profanity word list
+Example:
+- "I like ass boob" to ["I", "like", "ass", "boob"]
 Advantage:
-  - simple
-  - can detect "un-spaced" profanity word
+- Simple to implement
 Disadvantage:
-  - many "false positive"
-  e.g. http://www.morewords.com/contains/ass/
-  e.g. Clbuttic mistake (filter mistake)
+- Need proper list of profanity word
+- Some "false positive" e.g. Great tit (https://en.wikipedia.org/wiki/Great_tit)
+
+Attempt 2 (2.2): Filter word inside (with or without space)
+Detect all alphabet that contain "profanity word"
+Example:
+- "thistextisfunnyboobsanda55" which contains suspicious words: "boobs", "a55"
+Advantage:
+- Can detect "un-spaced" profanity word
+Disadvantage:
+- Many "false positive" e.g. http://www.morewords.com/contains/ass/, Clbuttic mistake (filter mistake)
 ```
 
-### Summary
+### In Summary
 - We don't know all methods that can produce profanity word
   (e.g. how many different ways can you enter a55 ?)
 - There have a non-algorithm-based approach to achieve it (yet)
 - People will always find a way to connect with each other
   (e.g. [Leet](https://en.wikipedia.org/wiki/Leet))
 
-So, this project decide to go with 1.1, 1.3 and 2.1.
-(*note - you can found other attempts in "Reference" section)
+**So, this project decide to go with 1.1, 1.3 and 2.1.**
+
+(note - you can found other attempts in "Reference" section)
 
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
