@@ -27,6 +27,12 @@ yarn add leo-profanity --ignore-optional # install only English bad word diction
 // Bower
 bower install leo-profanity
 // dictionary/default.json
+
+// githack
+<script src="https://raw.githack.com/jojoee/bahttext/master/src/index.js"></script>
+const filter = LeoProfanity
+filter.clearList()
+filter.add(["boobs", "butt"])
 ```
 
 ## Example usage for npm
