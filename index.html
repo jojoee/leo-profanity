@@ -3,11 +3,142 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Leo profanity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>leo-profanity.js</title>
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <style>
+    table {
+      table-layout: fixed
+    }
+
+    td {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <div class="row">
+      <h2>leo-profanity.js</h2>
+      <hr>
+
+      <div>
+        <div class="two columns">
+          <label for="nbLetters">nbLetters</label>
+          <input type="number" id="nbLetters" class="u-full-width input" value="0">
+        </div>
+
+        <div class="two columns">
+          <label for="replaceKey">replaceKey</label>
+          <input type="text" id="replaceKey" class="u-full-width input" value="*">
+        </div>
+
+        <div class="eight columns">
+          <label for="input">input</label>
+          <input type="text" id="input" class="u-full-width input">
+        </div>
+      </div>
+
+      <div>
+        <label for="result">result</label>
+        <div id="result" class="u-full-width"></div>
+      </div>
+      <hr>
+
+      <h4>Example</h4>
+      <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Input</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Input</th>
+            <th>Result</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="./src/index.js"></script>
   <script>
+    const filter = LeoProfanity
+    const $nbLetters = $('#nbLetters')
+    const $replaceKey = $('#replaceKey')
+    const $input = $('#input')
+    const $inputs = $('.input')
+    const $result = $('#result')
+    const $example = $('#example')
+    const initInput = "This asshole text contains some bad words like b00b, butt"
+    const exampleItems = [
+      "",
+      "I have 2 eyes",
+      "I have boob, etc.",
+      "2g1c",
+      "zoophilia",
+      "lorem 2g1c ipsum",
+      "lorem zoophilia ipsum",
+      "I have BoOb",
+      "I have BoOb,",
+      "I have BoOb.",
+      "I have boob,boob, ass, and etc.",
+      "Buy classic watches online",
+      "I  hav   ,e BoOb,  ",
+      ",I h  a.   v e BoOb.",
+      ".",
+    ]
+
+    function updateResult() {
+      const input = $input.val()
+      const nbLetters = parseInt($nbLetters.val())
+      const replaceKey = $replaceKey.val()
+      const result = filter.clean(input, replaceKey, nbLetters)
+
+      $result.html(result)
+    }
+
+    function onDataReady(words) {
+      // filter setup
+      filter.clearList()
+      filter.add(words)
+
+      // initial input value
+      $input.val(initInput)
+      $input.attr("placeholder", initInput)
+      updateResult()
+
+      // watch input change
+      $inputs.on('input', function (e) {
+        updateResult()
+      })
+
+      // example
+      $example.DataTable({
+        paging: false,
+        searching: false,
+        ordering: false,
+        data: exampleItems.map((input) => [input, filter.clean(input)]),
+      })
+    }
+
+    $(document).ready(function () {
+      // update word list
+      fetch('dictionary/default.json')
+        .then(response => response.json())
+        .then(data => {
+          onDataReady(data)
+        })
+    })
   </script>
 </body>
 
