@@ -156,4 +156,3 @@ npm publish --dry-run
   - http://www.cs.cmu.edu/~biglou/resources/bad-words.txt
 - Tool
   - [RegExr](http://regexr.com/)
-
