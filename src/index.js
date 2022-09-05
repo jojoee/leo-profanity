@@ -1,19 +1,14 @@
-var util = require('./module/Util')
-var wordDictionary = [];
-wordDictionary['en'] = require('../dictionary/default.json');
-
-// try to import optional dictionaries
-try { wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
-try { wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
-
-var words = util.clone(wordDictionary['en'])
-
 /**
  * LeoProfanity
  *
  * @constructor
  */
 var LeoProfanity = {
+  /** @type {Object.<string, Array.string>} */
+  wordDictionary: {},
+
+  /** @type {Array.string} */
+  words: [],
 
   /**
    * Remove word from the list
@@ -22,10 +17,10 @@ var LeoProfanity = {
    * @param {string} str - word
    */
   removeWord: function (str) {
-    var index = words.indexOf(str);
+    var index = this.words.indexOf(str);
 
     if (index !== -1) {
-      words.splice(index, 1);
+      this.words.splice(index, 1);
     }
 
     return this;
@@ -38,8 +33,8 @@ var LeoProfanity = {
    * @param {string} str - word
    */
   addWord: function (str) {
-    if (words.indexOf(str) === -1) {
-      words.push(str);
+    if (this.words.indexOf(str) === -1) {
+      this.words.push(str);
     }
 
     return this;
@@ -98,7 +93,7 @@ var LeoProfanity = {
    * @returns {Array.string}
    */
   list: function () {
-    return words;
+    return this.words;
   },
 
   /**
@@ -127,8 +122,8 @@ var LeoProfanity = {
     // convert into array and remove white space
     // add default returned value for some cases (e.g. "." will returns null)
     var strs = str.match(/[^ ]+/g) || [];
-    while (!isFound && i <= words.length - 1) {
-      if (strs.includes(words[i])) isFound = true;
+    while (!isFound && i <= this.words.length - 1) {
+      if (strs.includes(this.words[i])) isFound = true;
       i++;
     }
 
@@ -155,7 +150,7 @@ var LeoProfanity = {
     var originalString = str;
     var result = str;
 
-    var sanitizedStr = this.sanitize(originalString);
+    var sanitizedStr = self.sanitize(originalString);
     // split by whitespace (keep delimiter)
     // (cause comma and dot already replaced by whitespace)
     var sanitizedArr = sanitizedStr.split(/(\s)/);
@@ -165,7 +160,7 @@ var LeoProfanity = {
     // loop through given string
     var badWords = [];
     sanitizedArr.forEach(function (item, index) {
-      if (words.includes(item)) {
+      if (self.words.includes(item)) {
         var replacementWord = item.slice(0, nbLetters) + self.getReplacementWord(replaceKey, item.length - nbLetters);
         badWords.push(resultArr[index]);
         resultArr[index] = replacementWord;
@@ -336,7 +331,7 @@ var LeoProfanity = {
    * @public
    */
   clearList: function () {
-    words = [];
+    this.words = [];
 
     return this;
   },
@@ -356,8 +351,8 @@ var LeoProfanity = {
    * @returns {Array.string}
    */
   getDictionary: function (name = 'en') {
-    name = (name in wordDictionary) ? name : 'en';
-    return wordDictionary[name]
+    name = (name in this.wordDictionary) ? name : 'en';
+    return this.wordDictionary[name]
   },
 
   /**
@@ -386,8 +381,22 @@ var LeoProfanity = {
    * @param {string} [name=en]
    */
   loadDictionary: function (name = 'en') {
-    words = util.clone(this.getDictionary(name))
+    // clone
+    this.words = JSON.parse(JSON.stringify(this.getDictionary(name)))
   },
 };
 
-module.exports = LeoProfanity;
+if (typeof module !== 'undefined' && module.exports != null) {
+  // constructor here
+  LeoProfanity.wordDictionary['en'] = require('../dictionary/default.json');
+
+  // try to import optional dictionaries
+  try { LeoProfanity.wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
+  try { LeoProfanity.wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
+
+  /** @type {Array.string} */
+  LeoProfanity.words = JSON.parse(JSON.stringify(LeoProfanity.wordDictionary ? LeoProfanity.wordDictionary['en'] : []));
+
+  module.exports = LeoProfanity
+  exports.default = LeoProfanity
+}
