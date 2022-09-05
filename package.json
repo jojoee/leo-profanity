@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/jojoee/leo-profanity#readme",
   "optionalDependencies": {
-    "french-badwords-list": "^1.0.5",
+    "french-badwords-list": "^1.0.6",
     "russian-bad-words": "^0.5.0"
   }
 }
