@@ -11,3 +11,4 @@ rules:
   comma-dangle: 0
   one-var: 0
   dot-notation: 0
+  strict: 2
