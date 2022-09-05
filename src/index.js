@@ -126,7 +126,7 @@ var LeoProfanity = {
     str = this.sanitize(str);
     // convert into array and remove white space
     // add default returned value for some cases (e.g. "." will returns null)
-    strs = str.match(/[^ ]+/g) || [];
+    var strs = str.match(/[^ ]+/g) || [];
     while (!isFound && i <= words.length - 1) {
       if (strs.includes(words[i])) isFound = true;
       i++;
