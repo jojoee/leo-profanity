@@ -122,6 +122,12 @@ Disadvantage:
 
 (note - you can found other attempts in "Reference" section)
 
+## CMD
+
+```
+npm publish --dry-run
+```
+
 ## Other languages
 - [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
 - [x] PHP on [packagist.org/packages/jojoee/leo-profanity](https://packagist.org/packages/jojoee/leo-profanity)
