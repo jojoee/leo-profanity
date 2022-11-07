@@ -10,6 +10,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # https://stackoverflow.com/questions/67516571/github-action-triggered-by-success-of-a-different-action
+    # https://github.com/orgs/community/discussions/26238
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         node-version: [16.x]
