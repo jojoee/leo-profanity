@@ -390,6 +390,22 @@ var LeoProfanity = {
 
     return this;
   },
+
+  /**
+   * Remove dictionary
+   *
+   * @example
+   * // remove dictionary
+   * filter.removeDictionary('th')
+   *
+   * @public
+   * @param {string} name dictionary name
+   */
+   removeDictionary: function (name) {
+    delete this.wordDictionary[name]
+
+    return this;
+  },
 };
 
 if (typeof module !== 'undefined' && module.exports != null) {

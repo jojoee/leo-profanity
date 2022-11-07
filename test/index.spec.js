@@ -323,3 +323,27 @@ describe('addDictionary', function () {
     expect(filter.list().length).to.equal(words.length);
   });
 });
+
+describe('removeDictionary', function () {
+  it('should remove existing dictionary', function () {
+    var name = 'fr';
+    filter.loadDictionary(name);
+    expect(filter.list().length).to.not.equal(0);
+
+    filter.removeDictionary(name);
+
+    expect(name in filter.wordDictionary).to.be.false;
+  });
+
+  it('should remove new dictionary', function () {
+    filter.loadDictionary()
+    var name = 'th'
+    var words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า']
+    filter.addDictionary(name, words);
+    expect(filter.list().length).to.equal(words.length);
+
+    filter.removeDictionary(name);
+
+    expect(name in filter.wordDictionary).to.be.false;
+  });
+});
