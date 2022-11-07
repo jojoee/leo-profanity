@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="LeoProfanity.html">LeoProfanity</a><ul class='methods'><li data-type='method'><a href="LeoProfanity.html#.add">add</a></li><li data-type='method'><a href="LeoProfanity.html#.badWordsUsed">badWordsUsed</a></li><li data-type='method'><a href="LeoProfanity.html#.check">check</a></li><li data-type='method'><a href="LeoProfanity.html#.clean">clean</a></li><li data-type='method'><a href="LeoProfanity.html#.clearList">clearList</a></li><li data-type='method'><a href="LeoProfanity.html#.getDictionary">getDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.list">list</a></li><li data-type='method'><a href="LeoProfanity.html#.loadDictionary">loadDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.remove">remove</a></li><li data-type='method'><a href="LeoProfanity.html#.reset">reset</a></li></ul></li><li><a href="Util.html">Util</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="LeoProfanity.html">LeoProfanity</a><ul class='methods'><li data-type='method'><a href="LeoProfanity.html#.add">add</a></li><li data-type='method'><a href="LeoProfanity.html#.addDictionary">addDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.badWordsUsed">badWordsUsed</a></li><li data-type='method'><a href="LeoProfanity.html#.check">check</a></li><li data-type='method'><a href="LeoProfanity.html#.clean">clean</a></li><li data-type='method'><a href="LeoProfanity.html#.clearList">clearList</a></li><li data-type='method'><a href="LeoProfanity.html#.getDictionary">getDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.list">list</a></li><li data-type='method'><a href="LeoProfanity.html#.loadDictionary">loadDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.remove">remove</a></li><li data-type='method'><a href="LeoProfanity.html#.removeDictionary">removeDictionary</a></li><li data-type='method'><a href="LeoProfanity.html#.reset">reset</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -42,22 +42,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var util = require('./module/Util')
-var wordDictionary = [];
-wordDictionary['en'] = require('../dictionary/default.json');
-
-// try to import optional dictionaries
-try { wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
-try { wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
-
-var words = util.clone(wordDictionary['en'])
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * LeoProfanity
  *
  * @constructor
  */
 var LeoProfanity = {
+  /** @type {Object.&lt;string, Array.string>} */
+  wordDictionary: {},
+
+  /** @type {Array.string} */
+  words: [],
 
   /**
    * Remove word from the list
@@ -66,10 +61,10 @@ var LeoProfanity = {
    * @param {string} str - word
    */
   removeWord: function (str) {
-    var index = words.indexOf(str);
+    var index = this.words.indexOf(str);
 
     if (index !== -1) {
-      words.splice(index, 1);
+      this.words.splice(index, 1);
     }
 
     return this;
@@ -82,8 +77,8 @@ var LeoProfanity = {
    * @param {string} str - word
    */
   addWord: function (str) {
-    if (words.indexOf(str) === -1) {
-      words.push(str);
+    if (this.words.indexOf(str) === -1) {
+      this.words.push(str);
     }
 
     return this;
@@ -142,7 +137,7 @@ var LeoProfanity = {
    * @returns {Array.string}
    */
   list: function () {
-    return words;
+    return this.words;
   },
 
   /**
@@ -170,9 +165,9 @@ var LeoProfanity = {
     str = this.sanitize(str);
     // convert into array and remove white space
     // add default returned value for some cases (e.g. "." will returns null)
-    strs = str.match(/[^ ]+/g) || [];
-    while (!isFound &amp;&amp; i &lt;= words.length - 1) {
-      if (strs.includes(words[i])) isFound = true;
+    var strs = str.match(/[^ ]+/g) || [];
+    while (!isFound &amp;&amp; i &lt;= this.words.length - 1) {
+      if (strs.includes(this.words[i])) isFound = true;
       i++;
     }
 
@@ -199,7 +194,7 @@ var LeoProfanity = {
     var originalString = str;
     var result = str;
 
-    var sanitizedStr = this.sanitize(originalString);
+    var sanitizedStr = self.sanitize(originalString);
     // split by whitespace (keep delimiter)
     // (cause comma and dot already replaced by whitespace)
     var sanitizedArr = sanitizedStr.split(/(\s)/);
@@ -209,7 +204,7 @@ var LeoProfanity = {
     // loop through given string
     var badWords = [];
     sanitizedArr.forEach(function (item, index) {
-      if (words.includes(item)) {
+      if (self.words.includes(item)) {
         var replacementWord = item.slice(0, nbLetters) + self.getReplacementWord(replaceKey, item.length - nbLetters);
         badWords.push(resultArr[index]);
         resultArr[index] = replacementWord;
@@ -380,7 +375,7 @@ var LeoProfanity = {
    * @public
    */
   clearList: function () {
-    words = [];
+    this.words = [];
 
     return this;
   },
@@ -400,20 +395,8 @@ var LeoProfanity = {
    * @returns {Array.string}
    */
   getDictionary: function (name = 'en') {
-    name = (name in wordDictionary) ? name : 'en';
-    return wordDictionary[name]
-  },
-
-  /**
-   * Add dictionary
-   *
-   * @todo complete it
-   * @private
-   * @param {string} name
-   * @param {Array.string} data
-   */
-  addDictionary: function (name, data) {
-
+    name = (name in this.wordDictionary) ? name : 'en';
+    return this.wordDictionary[name]
   },
 
   /**
@@ -430,11 +413,59 @@ var LeoProfanity = {
    * @param {string} [name=en]
    */
   loadDictionary: function (name = 'en') {
-    words = util.clone(this.getDictionary(name))
+    // clone
+    this.words = JSON.parse(JSON.stringify(this.getDictionary(name)))
+  },
+
+  /**
+   * Add or create dictionary
+   *
+   * @example
+   * // create new dictionary
+   * filter.addDictionary('th', ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'])
+   *
+   * @public
+   * @param {string} name dictionary name
+   * @param {Array.string} words dictionary words
+   */
+  addDictionary: function (name, words) {
+    this.wordDictionary[name] = words
+    this.loadDictionary(name)
+
+    return this;
+  },
+
+  /**
+   * Remove dictionary
+   *
+   * @example
+   * // remove dictionary
+   * filter.removeDictionary('th')
+   *
+   * @public
+   * @param {string} name dictionary name
+   */
+   removeDictionary: function (name) {
+    delete this.wordDictionary[name]
+
+    return this;
   },
 };
 
-module.exports = LeoProfanity;
+if (typeof module !== 'undefined' &amp;&amp; module.exports != null) {
+  // constructor here
+  LeoProfanity.wordDictionary['en'] = require('../dictionary/default.json');
+
+  // try to import optional dictionaries
+  try { LeoProfanity.wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
+  try { LeoProfanity.wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
+
+  /** @type {Array.string} */
+  LeoProfanity.words = JSON.parse(JSON.stringify(LeoProfanity.wordDictionary ? LeoProfanity.wordDictionary['en'] : []));
+
+  module.exports = LeoProfanity
+  exports.default = LeoProfanity
+}
 </code></pre>
         </article>
     </section>
@@ -449,7 +480,7 @@ module.exports = LeoProfanity;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Jul 29 2022 14:24:02 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Nov 07 2022 10:20:38 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
