@@ -280,12 +280,6 @@ describe('getDictionary', function () {
   }
 });
 
-describe('addDictionary', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
-  });
-});
-
 describe('loadDictionary', function () {
   it('should load "en" dictionary', function () {
     filter.loadDictionary()
@@ -316,4 +310,16 @@ describe('loadDictionary', function () {
       expect(filter.list().length).to.equal(wordDictionary['ru'].length)
     });
   }
+});
+
+describe('addDictionary', function () {
+  it('should add new dictionary', function () {
+    filter.loadDictionary();
+    var name = 'th';
+    var words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'];
+
+    filter.addDictionary(name, words);
+
+    expect(filter.list().length).to.equal(words.length);
+  });
 });

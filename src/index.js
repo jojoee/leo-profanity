@@ -356,18 +356,6 @@ var LeoProfanity = {
   },
 
   /**
-   * Add dictionary
-   *
-   * @todo complete it
-   * @private
-   * @param {string} name
-   * @param {Array.string} data
-   */
-  addDictionary: function (name, data) {
-
-  },
-
-  /**
    * Load word list from dictionary to using in the filter
    *
    * @example
@@ -383,6 +371,24 @@ var LeoProfanity = {
   loadDictionary: function (name = 'en') {
     // clone
     this.words = JSON.parse(JSON.stringify(this.getDictionary(name)))
+  },
+
+  /**
+   * Add or create dictionary
+   *
+   * @example
+   * // create new dictionary
+   * filter.addDictionary('th', ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'])
+   *
+   * @public
+   * @param {string} name dictionary name
+   * @param {Array.string} words dictionary words
+   */
+  addDictionary: function (name, words) {
+    this.wordDictionary[name] = words
+    this.loadDictionary(name)
+
+    return this;
   },
 };
 
