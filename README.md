@@ -47,9 +47,15 @@ var filter = require('leo-profanity');
 
 // output: I have ****, etc.
 filter.clean('I have boob, etc.');
+
+// replace current dictionary with the french
+filter.loadDictionary('fr');
+
+// create new dictionary
+filter.addDictionary('th', ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'])
 ```
 
-See more here [LeoProfanity.clean](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html#.clean)
+See more here [LeoProfanity - Documentation](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html)
 
 ## Algorithm
 
@@ -131,6 +137,11 @@ Disadvantage:
 ## CMD
 
 ```
+npm run test.watch
+npm run validate
+npm run doc.generate
+
+# test npm publish
 npm publish --dry-run
 ```
 
