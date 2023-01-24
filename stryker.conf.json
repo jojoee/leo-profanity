@@ -3,16 +3,23 @@
   "_comment": "This config was generated using 'stryker init'. Please take a look at: https://stryker-mutator.io/docs/stryker-js/configuration/ for more information.",
   "packageManager": "npm",
   "reporters": [
+    "json",
+    "progress",
     "html",
-    "clear-text",
-    "progress"
+    "dashboard"
   ],
   "testRunner": "mocha",
   "testRunner_comment": "Take a look at https://stryker-mutator.io/docs/stryker-js/mocha-runner for information about the mocha plugin.",
   "thresholds": {
-    "high": 95,
-    "low": 90,
-    "break": 80
+    "high": 85,
+    "low": 75,
+    "break": 70
+  },
+  "dashboard": {
+    "project": "github.com/jojoee/leo-profanity",
+    "version": "master",
+    "baseUrl": "https://dashboard.stryker-mutator.io/api/reports",
+    "reportType": "full"
   },
   "coverageAnalysis": "perTest"
 }

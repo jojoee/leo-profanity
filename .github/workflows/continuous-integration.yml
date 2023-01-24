@@ -49,6 +49,8 @@ jobs:
           npm run coverage.check
 
       - name: Mutation test
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         run: |
           npx stryker run
 

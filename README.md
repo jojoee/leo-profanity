@@ -10,6 +10,7 @@
 [![License - npm](https://img.shields.io/npm/l/leo-profanity.svg)](http://opensource.org/licenses/MIT)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jojoee/leo-profanity.svg)](https://greenkeeper.io/)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fjojoee%2Fleo-profanity%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/jojoee/leo-profanity/master)
 
 Profanity filter, based on "Shutterstock" dictionary. [Demo page](https://jojoee.github.io/leo-profanity/), [API document page](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html)
 
@@ -147,6 +148,8 @@ npm publish --dry-run
 # mutation test
 npm install -g stryker-cli
 stryker init
+export STRYKER_DASHBOARD_API_KEY=<the_project_api_token>
+echo $STRYKER_DASHBOARD_API_KEY
 npx stryker run
 ```
 
