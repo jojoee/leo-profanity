@@ -143,6 +143,11 @@ npm run doc.generate
 
 # test npm publish
 npm publish --dry-run
+
+# mutation test
+npm install -g stryker-cli
+stryker init
+npx stryker run
 ```
 
 ## Other languages

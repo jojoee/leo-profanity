@@ -48,5 +48,9 @@ jobs:
           npm run coverage
           npm run coverage.check
 
+      - name: Mutation test
+        run: |
+          npx stryker run
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
