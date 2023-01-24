@@ -22,3 +22,6 @@ yarn.lock
 
 # Mac
 **/.DS_Store
+
+# stryker temp files
+.stryker-tmp
