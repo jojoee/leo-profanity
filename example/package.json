@@ -1,0 +1,6 @@
+{
+  "name": "leo-profanity-example",
+  "dependencies": {
+    "leo-profanity": "*"
+  }
+}
