@@ -1,3 +1,6 @@
+/* eslint no-var: 0 */
+// old node.js version doesn't support let and const
+
 /**
  * LeoProfanity
  *

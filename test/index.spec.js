@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
-var expect = require('chai').expect;
-var filter = require('../src/index.js');
+const expect = require('chai').expect;
+const filter = require('../src/index.js');
 const enWordDictionary = require('../dictionary/default.json')
 
 // optional dictionaries
@@ -208,7 +208,7 @@ describe('add', function () {
 
   it('should not add if we already have', function () {
     // check duplication
-    var numberOfCurrentWords = filter.list().length;
+    const numberOfCurrentWords = filter.list().length;
     filter.add(['b@@b', 'b##b']);
     expect(filter.list().length).to.equal(numberOfCurrentWords);
   });
@@ -233,7 +233,7 @@ describe('reset', function () {
     filter.reset();
 
     // prepare data to test by adding new 2 bad words
-    var numberOfCurrentWords = filter.list().length;
+    const numberOfCurrentWords = filter.list().length;
     filter.add(['badword1', 'badword2']);
     expect(filter.list().length).to.equal(numberOfCurrentWords + 2);
 
@@ -252,7 +252,7 @@ describe('clearList', function () {
 
 describe('getDictionary', function () {
   it('should returns "en" word list', function () {
-    var result = filter.getDictionary()
+    const result = filter.getDictionary()
 
     // contains words
     expect(result).to.include('boob');
@@ -264,7 +264,7 @@ describe('getDictionary', function () {
 
   if (wordDictionary['fr']) {
     it('should returns "fr" word list', function () {
-      var result = filter.getDictionary('fr')
+      const result = filter.getDictionary('fr')
 
       expect(result).to.include('1mb3c1l3');
       expect(result).to.include('1mbec1l3');
@@ -273,7 +273,7 @@ describe('getDictionary', function () {
 
   if (wordDictionary['ru']) {
     it('should returns "ru" word list', function () {
-      var result = filter.getDictionary('ru')
+      const result = filter.getDictionary('ru')
 
       expect(result).to.include('хуй');
     });
@@ -315,8 +315,8 @@ describe('loadDictionary', function () {
 describe('addDictionary', function () {
   it('should add new dictionary', function () {
     filter.loadDictionary();
-    var name = 'th';
-    var words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'];
+    const name = 'th';
+    const words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'];
 
     filter.addDictionary(name, words);
 
@@ -326,7 +326,7 @@ describe('addDictionary', function () {
 
 describe('removeDictionary', function () {
   it('should remove existing dictionary', function () {
-    var name = 'fr';
+    const name = 'fr';
     filter.loadDictionary(name);
     expect(filter.list().length).to.not.equal(0);
 
@@ -337,8 +337,8 @@ describe('removeDictionary', function () {
 
   it('should remove new dictionary', function () {
     filter.loadDictionary()
-    var name = 'th'
-    var words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า']
+    const name = 'th'
+    const words = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า']
     filter.addDictionary(name, words);
     expect(filter.list().length).to.equal(words.length);
 
