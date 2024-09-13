@@ -7,20 +7,20 @@
     "test": "test"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^6.3.1",
-    "@stryker-mutator/mocha-runner": "^6.3.1",
+    "@stryker-mutator/core": "^8.5.0",
+    "@stryker-mutator/mocha-runner": "^8.5.0",
     "chai": "4.2.0",
-    "codecov": "3.7.1",
-    "docdash": "^1.2.0",
-    "eslint": "^8.23.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.26.0",
+    "codecov": "3.8.3",
+    "docdash": "^2.0.2",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-standard": "^4.1.0",
-    "jsdoc": "^3.6.11",
-    "mocha": "^7.2.0",
-    "nyc": "^15.1.0"
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "jsdoc": "^4.0.3",
+    "mocha": "^10.7.3",
+    "nyc": "^17.0.0"
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov mocha test test/**/*.spec.js",
