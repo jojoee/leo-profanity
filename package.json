@@ -7,20 +7,20 @@
     "test": "test"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^8.5.0",
-    "@stryker-mutator/mocha-runner": "^8.5.0",
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/mocha-runner": "^8.7.1",
     "chai": "4.2.0",
     "codecov": "3.8.3",
     "docdash": "^2.0.2",
     "eslint": "^8.0.1",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
-    "jsdoc": "^4.0.3",
-    "mocha": "^10.7.3",
-    "nyc": "^17.0.0"
+    "jsdoc": "^4.0.4",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0"
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov mocha test test/**/*.spec.js",
@@ -59,7 +59,7 @@
   },
   "homepage": "https://github.com/jojoee/leo-profanity#readme",
   "optionalDependencies": {
-    "french-badwords-list": "^1.0.6",
+    "french-badwords-list": "^1.0.7",
     "russian-bad-words": "^0.5.0"
   }
 }
