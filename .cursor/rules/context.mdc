@@ -78,7 +78,7 @@ Before committing changes, run these verification steps:
 - Dictionary management for multi-language support (en, fr, ru)
 - Sanitize algorithm: lowercase + replace comma/dot with space
 - Filter algorithm: split by whitespace and check against word Set (O(1) lookup)
-- Options object pattern: `clean(str, { replaceKey, nbLetters })`
+- `clean()` supports both positional args and options object: `clean(str, replaceKey, nbLetters)` or `clean(str, { replaceKey, nbLetters })`
 - TypeScript definitions included in `src/index.d.ts`
 
 ## Error Handling
