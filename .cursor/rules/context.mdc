@@ -13,7 +13,8 @@ Profanity filter library based on Shutterstock dictionary with multi-language su
 ```
 leo-profanity/
 ├── src/
-│   └── index.js        # Main source (LeoProfanity object)
+│   ├── index.js        # Main source (LeoProfanity object)
+│   └── index.d.ts      # TypeScript definitions
 ├── test/
 │   └── index.spec.js   # Mocha/Chai tests
 ├── dictionary/
@@ -24,7 +25,7 @@ leo-profanity/
 
 ## Technology Stack
 
-- ES5 JavaScript (for older Node.js compatibility)
+- ES6+ JavaScript (Node.js 18+)
 - Mocha + Chai for testing (BDD interface)
 - nyc for coverage (80% threshold)
 - Stryker for mutation testing
@@ -34,11 +35,11 @@ leo-profanity/
 
 ## JavaScript Conventions
 
-- Use `var` instead of `let`/`const` for ES5 compatibility
-- File starts with `/* eslint no-var: 0 */` to allow var
+- Use `const` for variables that are not reassigned, `let` for variables that are
+- Use arrow functions for callbacks and anonymous functions
 - JSDoc comments with @example, @public/@private, @param, @returns
 - Method chaining pattern: methods that modify state return `this`
-- Single object export pattern: `var LeoProfanity = { ... }; module.exports = LeoProfanity`
+- Single object export pattern: `const LeoProfanity = { ... }; module.exports = LeoProfanity`
 
 ## Testing Conventions
 
@@ -66,11 +67,18 @@ Before committing changes, run these verification steps:
 ## Code Architecture
 
 - Single object pattern with all methods on LeoProfanity object
-- Private helpers: `removeWord`, `addWord`, `getReplacementWord`, `sanitize`, `proceed`
-- Public API: `list`, `check`, `clean`, `badWordsUsed`, `add`, `remove`, `reset`, `clearList`, `getDictionary`, `loadDictionary`, `addDictionary`, `removeDictionary`
+- Private helpers: `removeWord`, `addWord`, `getReplacementWord`, `sanitize`, `proceed`, `_syncSet`
+- Internal state: `_wordsSet` (Set for O(1) lookups), `_whitelist` (Set for excluded words)
+- Public API:
+  - Core: `list`, `check`, `clean`, `badWordsUsed`
+  - Word management: `add`, `remove`, `reset`, `clearList`
+  - Dictionary: `getDictionary`, `loadDictionary`, `addDictionary`, `removeDictionary`
+  - Whitelist: `addWhitelist`, `removeWhitelist`, `clearWhitelist`, `getWhitelist`
 - Dictionary management for multi-language support (en, fr, ru)
 - Sanitize algorithm: lowercase + replace comma/dot with space
-- Filter algorithm: split by whitespace and check against word list
+- Filter algorithm: split by whitespace and check against word Set (O(1) lookup)
+- Options object pattern: `clean(str, { replaceKey, nbLetters })`
+- TypeScript definitions included in `src/index.d.ts`
 
 ## Error Handling
 

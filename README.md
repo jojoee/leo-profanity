@@ -3,16 +3,18 @@
 ![continuous integration](https://github.com/jojoee/leo-profanity/workflows/continuous%20integration/badge.svg?branch=master)
 ![release](https://github.com/jojoee/leo-profanity/workflows/release/badge.svg?branch=master)
 ![runnable](https://github.com/jojoee/leo-profanity/workflows/runnable/badge.svg?branch=master)
-![runnable old node](https://github.com/jojoee/leo-profanity/workflows/runnable%20old%20node/badge.svg?branch=master)
 ![runnable without optional dependencies](https://github.com/jojoee/leo-profanity/workflows/runnable%20without%20optional%20dependencies/badge.svg?branch=master)
 [![Codecov](https://img.shields.io/codecov/c/github/jojoee/leo-profanity.svg)](https://codecov.io/github/jojoee/leo-profanity)
 [![Version - npm](https://img.shields.io/npm/v/leo-profanity.svg)](https://www.npmjs.com/package/leo-profanity)
 [![License - npm](https://img.shields.io/npm/l/leo-profanity.svg)](http://opensource.org/licenses/MIT)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-[![Greenkeeper badge](https://badges.greenkeeper.io/jojoee/leo-profanity.svg)](https://greenkeeper.io/)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fjojoee%2Fleo-profanity%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/jojoee/leo-profanity/master)
 
 Profanity filter, based on "Shutterstock" dictionary. [Demo page](https://jojoee.github.io/leo-profanity/), [API document page](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html)
+
+## Requirements
+
+Node.js 18 or higher. TypeScript definitions included.
 
 ## Installation
 
@@ -39,12 +41,9 @@ filter.add(["boobs", "butt"])
 ## Example usage for npm
 
 ```javascript
-// support languages
-// - en
-// - fr
-// - ru
+// support languages: en, fr, ru
 
-var filter = require('leo-profanity');
+const filter = require('leo-profanity');
 
 // output: I have ****, etc.
 filter.clean('I have boob, etc.');
@@ -53,7 +52,62 @@ filter.clean('I have boob, etc.');
 filter.loadDictionary('fr');
 
 // create new dictionary
-filter.addDictionary('th', ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า'])
+filter.addDictionary('th', ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า']);
+```
+
+### TypeScript
+
+```typescript
+import filter from 'leo-profanity';
+
+// Basic usage
+filter.clean('I have boob'); // 'I have ****'
+
+// With options object
+filter.clean('I have boob', { replaceKey: '+', nbLetters: 2 }); // 'I have bo++'
+```
+
+### Whitelist
+
+Exclude specific words from being filtered:
+
+```javascript
+const filter = require('leo-profanity');
+
+// Add words to whitelist
+filter.addWhitelist('ass');
+filter.addWhitelist(['boob', 'butt']);
+
+// These words will not be filtered
+filter.clean('I have ass'); // 'I have ass'
+filter.check('I have ass'); // false
+
+// Remove from whitelist
+filter.removeWhitelist('ass');
+
+// Clear all whitelisted words
+filter.clearWhitelist();
+
+// Get all whitelisted words
+filter.getWhitelist(); // []
+```
+
+### Options Object
+
+The `clean()` method supports an options object:
+
+```javascript
+const filter = require('leo-profanity');
+
+// Traditional positional parameters
+filter.clean('I have boob', '+', 2); // 'I have bo++'
+
+// Options object (recommended)
+filter.clean('I have boob', { replaceKey: '+', nbLetters: 2 }); // 'I have bo++'
+
+// Partial options
+filter.clean('I have boob', { replaceKey: '-' }); // 'I have ----'
+filter.clean('I have boob', { nbLetters: 2 }); // 'I have bo**'
 ```
 
 See more here [LeoProfanity - Documentation](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html)
