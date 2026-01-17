@@ -1,14 +1,16 @@
 # leo-profanity
 
-![continuous integration](https://github.com/jojoee/leo-profanity/workflows/continuous%20integration/badge.svg?branch=master)
-![release](https://github.com/jojoee/leo-profanity/workflows/release/badge.svg?branch=master)
-![runnable](https://github.com/jojoee/leo-profanity/workflows/runnable/badge.svg?branch=master)
-![runnable without optional dependencies](https://github.com/jojoee/leo-profanity/workflows/runnable%20without%20optional%20dependencies/badge.svg?branch=master)
-[![Codecov](https://img.shields.io/codecov/c/github/jojoee/leo-profanity.svg)](https://codecov.io/github/jojoee/leo-profanity)
-[![Version - npm](https://img.shields.io/npm/v/leo-profanity.svg)](https://www.npmjs.com/package/leo-profanity)
+[![npm version](https://badge.fury.io/js/leo-profanity.svg)](https://badge.fury.io/js/leo-profanity)
+[![Download - npm](https://img.shields.io/npm/dt/leo-profanity.svg)](https://www.npmjs.com/package/leo-profanity)
 [![License - npm](https://img.shields.io/npm/l/leo-profanity.svg)](http://opensource.org/licenses/MIT)
+[![install size](https://packagephobia.com/badge?p=leo-profanity)](https://packagephobia.com/result?p=leo-profanity)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fjojoee%2Fleo-profanity%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/jojoee/leo-profanity/master)
+
+[![continuous integration](https://github.com/jojoee/leo-profanity/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/jojoee/leo-profanity/actions/workflows/continuous-integration.yml)
+[![release](https://github.com/jojoee/leo-profanity/actions/workflows/release.yml/badge.svg)](https://github.com/jojoee/leo-profanity/actions/workflows/release.yml)
+[![runnable](https://github.com/jojoee/leo-profanity/actions/workflows/runnable.yml/badge.svg)](https://github.com/jojoee/leo-profanity/actions/workflows/runnable.yml)
+[![codecov](https://codecov.io/gh/jojoee/leo-profanity/branch/master/graph/badge.svg)](https://codecov.io/gh/jojoee/leo-profanity)
 
 Profanity filter, based on "Shutterstock" dictionary. [Demo page](https://jojoee.github.io/leo-profanity/), [API document page](https://jojoee.github.io/leo-profanity/doc/LeoProfanity.html)
 
