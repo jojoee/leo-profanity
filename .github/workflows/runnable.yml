@@ -35,13 +35,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: |
-          npm install leo-profanity
-          npm install -g typescript
-          npm install -g ts-node
+        run: npm install leo-profanity
 
       - name: Run with CommonJS
         run: node commonjs.js
 
       - name: Run with ES6
-        run: ts-node es6.ts
+        run: npx ts-node es6.ts
