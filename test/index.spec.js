@@ -9,26 +9,86 @@ try { wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) 
 try { wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
 
 describe('removeWord', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+  it('should remove word from the list', function () {
+    filter.reset();
+    const initialLength = filter.list().length;
+    filter.removeWord('boob');
+    expect(filter.list().length).to.equal(initialLength - 1);
+    expect(filter.list()).to.not.include('boob');
+  });
+
+  it('should not fail if word does not exist', function () {
+    filter.reset();
+    const initialLength = filter.list().length;
+    filter.removeWord('nonexistentword');
+    expect(filter.list().length).to.equal(initialLength);
+  });
+
+  it('should return this for chaining', function () {
+    filter.reset();
+    const result = filter.removeWord('boob');
+    expect(result).to.equal(filter);
   });
 });
 
-describe('removeWord', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+describe('addWord', function () {
+  it('should add word to the list', function () {
+    filter.reset();
+    const initialLength = filter.list().length;
+    filter.addWord('newbadword');
+    expect(filter.list().length).to.equal(initialLength + 1);
+    expect(filter.list()).to.include('newbadword');
+  });
+
+  it('should not add duplicate word', function () {
+    filter.reset();
+    filter.addWord('duplicateword');
+    const lengthAfterFirst = filter.list().length;
+    filter.addWord('duplicateword');
+    expect(filter.list().length).to.equal(lengthAfterFirst);
+  });
+
+  it('should return this for chaining', function () {
+    filter.reset();
+    const result = filter.addWord('chaintest');
+    expect(result).to.equal(filter);
   });
 });
 
 describe('getReplacementWord', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+  it('should return repeated character', function () {
+    expect(filter.getReplacementWord('*', 3)).to.equal('***');
+    expect(filter.getReplacementWord('-', 4)).to.equal('----');
+    expect(filter.getReplacementWord('+', 5)).to.equal('+++++');
+  });
+
+  it('should return empty string for n=0', function () {
+    expect(filter.getReplacementWord('*', 0)).to.equal('');
+  });
+
+  it('should return single character for n=1', function () {
+    expect(filter.getReplacementWord('#', 1)).to.equal('#');
   });
 });
 
 describe('sanitize', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+  it('should convert to lowercase', function () {
+    expect(filter.sanitize('HELLO')).to.equal('hello');
+    expect(filter.sanitize('HeLLo WoRLD')).to.equal('hello world');
+  });
+
+  it('should replace dots with spaces', function () {
+    expect(filter.sanitize('hello.world')).to.equal('hello world');
+    expect(filter.sanitize('a.b.c')).to.equal('a b c');
+  });
+
+  it('should replace commas with spaces', function () {
+    expect(filter.sanitize('hello,world')).to.equal('hello world');
+    expect(filter.sanitize('a,b,c')).to.equal('a b c');
+  });
+
+  it('should handle mixed cases', function () {
+    expect(filter.sanitize('Hello.World,Test')).to.equal('hello world test');
   });
 });
 
@@ -82,8 +142,39 @@ describe('check', function () {
 });
 
 describe('proceed', function () {
-  it('should return valid result', function () {
-    // TODO: complete it
+  beforeEach(function () {
+    filter.reset();
+  });
+
+  it('should return empty string for empty input', function () {
+    expect(filter.proceed('')).to.equal('');
+  });
+
+  it('should return array with cleaned string and bad words', function () {
+    const result = filter.proceed('I have boob');
+    expect(result).to.be.an('array');
+    expect(result[0]).to.equal('I have ****');
+    expect(result[1]).to.deep.equal(['boob']);
+  });
+
+  it('should use default replaceKey of *', function () {
+    const result = filter.proceed('I have boob');
+    expect(result[0]).to.equal('I have ****');
+  });
+
+  it('should use custom replaceKey', function () {
+    const result = filter.proceed('I have boob', '+');
+    expect(result[0]).to.equal('I have ++++');
+  });
+
+  it('should preserve letters with nbLetters parameter', function () {
+    const result = filter.proceed('I have boob', '*', 2);
+    expect(result[0]).to.equal('I have bo**');
+  });
+
+  it('should return multiple bad words', function () {
+    const result = filter.proceed('I have boob and ass');
+    expect(result[1]).to.deep.equal(['boob', 'ass']);
   });
 });
 
@@ -140,7 +231,13 @@ describe('clean', function () {
 
   it('should show "clear letter" in the beginning of the word', function () {
     expect(filter.clean('I have boob', '+', 2)).to.equal('I have bo++');
-  })
+  });
+
+  it('should support options object pattern', function () {
+    expect(filter.clean('I have boob', { replaceKey: '+' })).to.equal('I have ++++');
+    expect(filter.clean('I have boob', { replaceKey: '+', nbLetters: 2 })).to.equal('I have bo++');
+    expect(filter.clean('I have boob', { nbLetters: 2 })).to.equal('I have bo**');
+  });
 });
 
 describe('badWordsUsed', function () {
@@ -345,5 +442,74 @@ describe('removeDictionary', function () {
     filter.removeDictionary(name);
 
     expect(name in filter.wordDictionary).to.be.false;
+  });
+});
+
+describe('whitelist', function () {
+  beforeEach(function () {
+    filter.reset();
+    filter.clearWhitelist();
+  });
+
+  describe('addWhitelist', function () {
+    it('should add word to whitelist', function () {
+      filter.addWhitelist('ass');
+      expect(filter.getWhitelist()).to.include('ass');
+    });
+
+    it('should add multiple words to whitelist', function () {
+      filter.addWhitelist(['ass', 'boob']);
+      expect(filter.getWhitelist()).to.include('ass');
+      expect(filter.getWhitelist()).to.include('boob');
+    });
+
+    it('should return this for chaining', function () {
+      const result = filter.addWhitelist('ass');
+      expect(result).to.equal(filter);
+    });
+  });
+
+  describe('removeWhitelist', function () {
+    it('should remove word from whitelist', function () {
+      filter.addWhitelist('ass');
+      filter.removeWhitelist('ass');
+      expect(filter.getWhitelist()).to.not.include('ass');
+    });
+
+    it('should remove multiple words from whitelist', function () {
+      filter.addWhitelist(['ass', 'boob']);
+      filter.removeWhitelist(['ass', 'boob']);
+      expect(filter.getWhitelist()).to.be.empty;
+    });
+  });
+
+  describe('clearWhitelist', function () {
+    it('should clear all whitelisted words', function () {
+      filter.addWhitelist(['ass', 'boob']);
+      filter.clearWhitelist();
+      expect(filter.getWhitelist()).to.be.empty;
+    });
+  });
+
+  describe('filtering with whitelist', function () {
+    it('should not filter whitelisted words with check()', function () {
+      filter.addWhitelist('ass');
+      expect(filter.check('I have ass')).to.be.false;
+    });
+
+    it('should not filter whitelisted words with clean()', function () {
+      filter.addWhitelist('ass');
+      expect(filter.clean('I have ass')).to.equal('I have ass');
+    });
+
+    it('should not include whitelisted words in badWordsUsed()', function () {
+      filter.addWhitelist('ass');
+      expect(filter.badWordsUsed('I have ass and boob')).to.deep.equal(['boob']);
+    });
+
+    it('should filter non-whitelisted words normally', function () {
+      filter.addWhitelist('ass');
+      expect(filter.clean('I have ass and boob')).to.equal('I have ass and ****');
+    });
   });
 });
