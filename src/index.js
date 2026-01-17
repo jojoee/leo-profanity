@@ -22,7 +22,7 @@ const LeoProfanity = {
    * @private
    */
   _syncSet: function () {
-    this._wordsSet = new Set(this.words);
+    this._wordsSet = new Set(this.words)
   },
 
   /**
@@ -32,14 +32,14 @@ const LeoProfanity = {
    * @param {string} str - word
    */
   removeWord: function (str) {
-    const index = this.words.indexOf(str);
+    const index = this.words.indexOf(str)
 
     if (index !== -1) {
-      this.words.splice(index, 1);
-      this._syncSet();
+      this.words.splice(index, 1)
+      this._syncSet()
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -50,11 +50,11 @@ const LeoProfanity = {
    */
   addWord: function (str) {
     if (this.words.indexOf(str) === -1) {
-      this.words.push(str);
-      this._syncSet();
+      this.words.push(str)
+      this._syncSet()
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -73,13 +73,13 @@ const LeoProfanity = {
    * @returns string
    */
   getReplacementWord: function (key, n) {
-    let replacementWord = '';
+    let replacementWord = ''
 
     for (let i = 0; i < n; i++) {
-      replacementWord += key;
+      replacementWord += key
     }
 
-    return replacementWord;
+    return replacementWord
   },
 
   /**
@@ -92,7 +92,7 @@ const LeoProfanity = {
    * @returns {string}
    */
   sanitize: function (str) {
-    return str.toLowerCase().replace(/\.|,/g, ' ');
+    return str.toLowerCase().replace(/\.|,/g, ' ')
   },
 
   /**
@@ -105,7 +105,7 @@ const LeoProfanity = {
    * @returns {Array.string}
    */
   list: function () {
-    return this.words;
+    return this.words
   },
 
   /**
@@ -125,19 +125,19 @@ const LeoProfanity = {
    * @returns {boolean}
    */
   check: function (str) {
-    if (!str) return false;
+    if (!str) return false
 
-    const sanitizedStr = this.sanitize(str);
+    const sanitizedStr = this.sanitize(str)
     // convert into array and remove white space
     // add default returned value for some cases (e.g. "." will returns null)
-    const strs = sanitizedStr.match(/[^ ]+/g) || [];
+    const strs = sanitizedStr.match(/[^ ]+/g) || []
 
     // Use Set for O(1) lookup, skip whitelisted words
     for (const word of strs) {
-      if (this._wordsSet.has(word) && !this._whitelist.has(word)) return true;
+      if (this._wordsSet.has(word) && !this._whitelist.has(word)) return true
     }
 
-    return false;
+    return false
   },
 
   /**
@@ -152,31 +152,31 @@ const LeoProfanity = {
    * @returns {string}
    */
   proceed: function (str, replaceKey, nbLetters) {
-    if (!str) return '';
-    if (typeof replaceKey === 'undefined') replaceKey = '*';
-    if (typeof nbLetters === 'undefined') nbLetters = 0;
+    if (!str) return ''
+    if (typeof replaceKey === 'undefined') replaceKey = '*'
+    if (typeof nbLetters === 'undefined') nbLetters = 0
 
-    const sanitizedStr = this.sanitize(str);
+    const sanitizedStr = this.sanitize(str)
     // split by whitespace (keep delimiter)
     // (cause comma and dot already replaced by whitespace)
-    const sanitizedArr = sanitizedStr.split(/(\s)/);
+    const sanitizedArr = sanitizedStr.split(/(\s)/)
     // split by whitespace, comma and dot (keep delimiter)
-    const resultArr = str.split(/(\s|,|\.)/);
+    const resultArr = str.split(/(\s|,|\.)/)
 
     // loop through given string, skip whitelisted words
-    const badWords = [];
+    const badWords = []
     sanitizedArr.forEach((item, index) => {
       if (this._wordsSet.has(item) && !this._whitelist.has(item)) {
-        const replacementWord = item.slice(0, nbLetters) + this.getReplacementWord(replaceKey, item.length - nbLetters);
-        badWords.push(resultArr[index]);
-        resultArr[index] = replacementWord;
+        const replacementWord = item.slice(0, nbLetters) + this.getReplacementWord(replaceKey, item.length - nbLetters)
+        badWords.push(resultArr[index])
+        resultArr[index] = replacementWord
       }
-    });
+    })
 
     // combine it
-    const result = resultArr.join('');
+    const result = resultArr.join('')
 
-    return [result, badWords];
+    return [result, badWords]
   },
 
   /**
@@ -228,21 +228,21 @@ const LeoProfanity = {
    * @returns {string}
    */
   clean: function (str, replaceKeyOrOptions, nbLetters) {
-    if (!str) return '';
+    if (!str) return ''
 
-    let replaceKey = '*';
-    let letters = 0;
+    let replaceKey = '*'
+    let letters = 0
 
     // Support both: clean(str, replaceKey, nbLetters) and clean(str, { replaceKey, nbLetters })
     if (typeof replaceKeyOrOptions === 'object' && replaceKeyOrOptions !== null) {
-      replaceKey = replaceKeyOrOptions.replaceKey || '*';
-      letters = replaceKeyOrOptions.nbLetters || 0;
+      replaceKey = replaceKeyOrOptions.replaceKey || '*'
+      letters = replaceKeyOrOptions.nbLetters || 0
     } else {
-      replaceKey = replaceKeyOrOptions || '*';
-      letters = nbLetters || 0;
+      replaceKey = replaceKeyOrOptions || '*'
+      letters = nbLetters || 0
     }
 
-    return this.proceed(str, replaceKey, letters)[0];
+    return this.proceed(str, replaceKey, letters)[0]
   },
 
   /**
@@ -278,8 +278,8 @@ const LeoProfanity = {
    * @returns {Array.string}
    */
   badWordsUsed: function (str) {
-    if (!str) return [];
-    return this.proceed(str, '*')[1];
+    if (!str) return []
+    return this.proceed(str, '*')[1]
   },
 
   /**
@@ -298,14 +298,14 @@ const LeoProfanity = {
    */
   add: function (data) {
     if (typeof data === 'string') {
-      this.addWord(data);
+      this.addWord(data)
     } else if (data.constructor === Array) {
       data.forEach((word) => {
-        this.addWord(word);
-      });
+        this.addWord(word)
+      })
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -323,14 +323,14 @@ const LeoProfanity = {
    */
   remove: function (data) {
     if (typeof data === 'string') {
-      this.removeWord(data);
+      this.removeWord(data)
     } else if (data.constructor === Array) {
       data.forEach((word) => {
-        this.removeWord(word);
-      });
+        this.removeWord(word)
+      })
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -340,8 +340,8 @@ const LeoProfanity = {
    * @public
    */
   reset: function () {
-    this.loadDictionary('en');
-    return this;
+    this.loadDictionary('en')
+    return this
   },
 
   /**
@@ -350,10 +350,10 @@ const LeoProfanity = {
    * @public
    */
   clearList: function () {
-    this.words = [];
-    this._syncSet();
+    this.words = []
+    this._syncSet()
 
-    return this;
+    return this
   },
 
   /**
@@ -371,7 +371,7 @@ const LeoProfanity = {
    * @returns {Array.string}
    */
   getDictionary: function (name = 'en') {
-    name = (name in this.wordDictionary) ? name : 'en';
+    name = (name in this.wordDictionary) ? name : 'en'
     return this.wordDictionary[name]
   },
 
@@ -390,8 +390,8 @@ const LeoProfanity = {
    */
   loadDictionary: function (name = 'en') {
     // clone
-    this.words = JSON.parse(JSON.stringify(this.getDictionary(name)));
-    this._syncSet();
+    this.words = JSON.parse(JSON.stringify(this.getDictionary(name)))
+    this._syncSet()
   },
 
   /**
@@ -409,7 +409,7 @@ const LeoProfanity = {
     this.wordDictionary[name] = words
     this.loadDictionary(name)
 
-    return this;
+    return this
   },
 
   /**
@@ -423,9 +423,9 @@ const LeoProfanity = {
    * @param {string} name dictionary name
    */
   removeDictionary: function (name) {
-    delete this.wordDictionary[name];
+    delete this.wordDictionary[name]
 
-    return this;
+    return this
   },
 
   /**
@@ -444,14 +444,14 @@ const LeoProfanity = {
    */
   addWhitelist: function (data) {
     if (typeof data === 'string') {
-      this._whitelist.add(data.toLowerCase());
+      this._whitelist.add(data.toLowerCase())
     } else if (Array.isArray(data)) {
       data.forEach((word) => {
-        this._whitelist.add(word.toLowerCase());
-      });
+        this._whitelist.add(word.toLowerCase())
+      })
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -470,14 +470,14 @@ const LeoProfanity = {
    */
   removeWhitelist: function (data) {
     if (typeof data === 'string') {
-      this._whitelist.delete(data.toLowerCase());
+      this._whitelist.delete(data.toLowerCase())
     } else if (Array.isArray(data)) {
       data.forEach((word) => {
-        this._whitelist.delete(word.toLowerCase());
-      });
+        this._whitelist.delete(word.toLowerCase())
+      })
     }
 
-    return this;
+    return this
   },
 
   /**
@@ -490,9 +490,9 @@ const LeoProfanity = {
    * @returns this for chaining
    */
   clearWhitelist: function () {
-    this._whitelist.clear();
+    this._whitelist.clear()
 
-    return this;
+    return this
   },
 
   /**
@@ -505,22 +505,22 @@ const LeoProfanity = {
    * @returns {Array.string}
    */
   getWhitelist: function () {
-    return Array.from(this._whitelist);
-  },
-};
+    return Array.from(this._whitelist)
+  }
+}
 
 if (typeof module !== 'undefined' && module.exports != null) {
   // constructor here
-  LeoProfanity.wordDictionary['en'] = require('../dictionary/default.json');
+  LeoProfanity.wordDictionary.en = require('../dictionary/default.json')
 
   // try to import optional dictionaries
-  try { LeoProfanity.wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
-  try { LeoProfanity.wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
+  try { LeoProfanity.wordDictionary.fr = require('french-badwords-list').array } catch (e) {}
+  try { LeoProfanity.wordDictionary.ru = require('russian-bad-words').flatWords } catch (e) {}
 
   /** @type {Array.string} */
-  LeoProfanity.words = JSON.parse(JSON.stringify(LeoProfanity.wordDictionary ? LeoProfanity.wordDictionary['en'] : []));
-  LeoProfanity._syncSet();
+  LeoProfanity.words = JSON.parse(JSON.stringify(LeoProfanity.wordDictionary ? LeoProfanity.wordDictionary.en : []))
+  LeoProfanity._syncSet()
 
-  module.exports = LeoProfanity;
-  exports.default = LeoProfanity;
+  module.exports = LeoProfanity
+  exports.default = LeoProfanity
 }
