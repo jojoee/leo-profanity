@@ -29,7 +29,8 @@ leo-profanity/
 - Mocha + Chai for testing (BDD interface)
 - nyc for coverage (80% threshold)
 - Stryker for mutation testing
-- ESLint with eslint-config-standard
+- standard for JavaScript linting
+- ts-standard for TypeScript definition linting
 - semantic-release for versioning
 - JSDoc for documentation
 
@@ -59,7 +60,7 @@ leo-profanity/
 
 Before committing changes, run these verification steps:
 
-1. **Linting**: `npm run eslint` - Check code quality
+1. **Linting**: `npm run lint` - Check code quality with standard and ts-standard
 2. **Unit Tests**: `npm test` - Verify all tests pass
 3. **Code Coverage**: `npm run coverage && npm run coverage.check` - Check 80% threshold
 4. **Full Validation**: `npm run validate` - Run all checks together

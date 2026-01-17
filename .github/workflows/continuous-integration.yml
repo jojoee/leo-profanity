@@ -40,8 +40,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Linting with ESLint
-        run: npm run eslint
+      - name: Lint
+        run: npm run lint
 
       - name: Test and test coverage
         run: |

@@ -16,26 +16,23 @@
     "chai": "4.2.0",
     "codecov": "3.8.3",
     "docdash": "^2.0.2",
-    "eslint": "^8.0.1",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-standard": "^5.0.0",
     "jsdoc": "^4.0.4",
     "mocha": "^11.1.0",
-    "nyc": "^17.1.0"
+    "nyc": "^17.1.0",
+    "standard": "^17.1.2",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.7.3"
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov mocha test test/**/*.spec.js",
     "coverage.check": "nyc check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "coverage.report": "cat ./coverage/lcov.info | codecov",
     "doc.generate": "jsdoc -c jsdoc.json -d doc ./src/index.js -r",
-    "eslint": "eslint src test --env mocha",
-    "eslint.fix": "eslint src test --env mocha --fix",
+    "lint": "standard && ts-standard",
+    "lint:fix": "standard --fix && ts-standard --fix",
     "test": "mocha test test/**/*.spec.js",
     "test.watch": "npm t -- --watch",
-    "validate": "npm run eslint && npm run coverage && npm run coverage.check",
+    "validate": "npm run lint && npm run coverage && npm run coverage.check",
     "setup": "npm install && npm run validate"
   },
   "repository": {
@@ -65,5 +62,13 @@
   "optionalDependencies": {
     "french-badwords-list": "^1.0.7",
     "russian-bad-words": "^0.5.0"
+  },
+  "standard": {
+    "env": ["mocha"],
+    "ignore": ["src/*.d.ts", "doc/**", "example/*.ts"]
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json",
+    "ignore": ["doc/**", "test/**", "example/**"]
   }
 }
