@@ -19,10 +19,6 @@ bk*
 # Log
 npm-debug.log
 
-# Lock
-package-lock.json
-yarn.lock
-
 # Mac
 **/.DS_Store
 
