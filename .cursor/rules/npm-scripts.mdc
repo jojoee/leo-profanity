@@ -1,0 +1,94 @@
+---
+description: NPM scripts and development commands for leo-profanity
+globs: package.json
+alwaysApply: false
+---
+
+# NPM Scripts
+
+## Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test.watch
+```
+
+## Code Quality
+
+```bash
+# Run ESLint
+npm run eslint
+
+# Run ESLint with auto-fix
+npm run eslint.fix
+```
+
+## Coverage
+
+```bash
+# Run tests with coverage report
+npm run coverage
+
+# Check coverage meets thresholds (80% minimum)
+npm run coverage.check
+
+# Upload coverage to Codecov
+npm run coverage.report
+```
+
+## Documentation
+
+```bash
+# Generate JSDoc documentation
+npm run doc.generate
+```
+
+## Full Validation
+
+```bash
+# Run linting, tests, and coverage check
+npm run validate
+```
+
+## Setup
+
+```bash
+# Install dependencies and run validation
+npm run setup
+```
+
+## Mutation Testing
+
+```bash
+# Run Stryker mutation tests
+npx stryker run
+```
+
+## Publishing
+
+The project uses semantic-release for automated npm publishing.
+
+```bash
+# Test npm publish without actually publishing
+npm publish --dry-run
+```
+
+## CI/CD Workflows
+
+GitHub Actions workflows in `.github/workflows/`:
+
+- `continuous-integration.yml` - Runs on push/PR to master
+  - ESLint
+  - Tests with coverage
+  - Mutation testing
+  - Codecov upload
+
+- `release.yml` - Runs after CI passes on master
+  - Semantic release to npm
+
+- `runnable.yml` - Verifies package works
+- `runnable-old-node.yml` - Tests on older Node.js versions
+- `runnable-without-optional-dependencies.yml` - Tests without French/Russian dictionaries

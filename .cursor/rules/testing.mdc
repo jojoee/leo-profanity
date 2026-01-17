@@ -1,0 +1,100 @@
+---
+description: Testing conventions for leo-profanity
+globs: test/**/*.js
+alwaysApply: false
+---
+
+# Testing Conventions
+
+## Test Framework
+
+- Test runner: Mocha
+- Assertion library: Chai (expect style)
+- Coverage: nyc (Istanbul)
+- Mutation testing: Stryker
+
+## Test File Structure
+
+Tests are in `test/index.spec.js` using Mocha's BDD interface:
+
+```javascript
+const expect = require('chai').expect;
+const filter = require('../src/index.js');
+
+describe('methodName', function () {
+  it('should return valid result when condition', function () {
+    expect(filter.method()).to.equal(expected);
+  });
+});
+```
+
+## Chai Assertions
+
+Common assertion patterns used:
+
+```javascript
+// Equality
+expect(result).to.equal('expected');
+expect(array).to.deep.equal(['a', 'b']);
+
+// Boolean
+expect(result).to.be.true;
+expect(result).to.be.false;
+
+// Array
+expect(array).to.include('item');
+expect(array).to.not.include('item');
+expect(array).to.be.empty;
+
+// Length
+expect(array.length).to.equal(5);
+```
+
+## Coverage Requirements
+
+Minimum 80% coverage required for:
+- Statements
+- Branches
+- Functions
+- Lines
+
+Run coverage check: `npm run coverage.check`
+
+## Mutation Testing
+
+Stryker is configured with thresholds:
+- High: 85%
+- Low: 75%
+- Break: 70%
+
+Run mutation tests: `npx stryker run`
+
+## Test Organization
+
+Group tests by method name using `describe`:
+
+```javascript
+describe('check', function () {
+  it('should return false if param is empty string', ...);
+  it('should return false if string not contain profanity word', ...);
+  it('should return true if string contain profanity word', ...);
+  it('should detect case sensitive', ...);
+});
+```
+
+## Optional Dependencies
+
+Handle optional dictionary imports gracefully:
+
+```javascript
+const wordDictionary = {};
+try { wordDictionary['fr'] = require('french-badwords-list').array; } catch (e) {}
+try { wordDictionary['ru'] = require('russian-bad-words').flatWords; } catch (e) {}
+
+// Conditional tests
+if (wordDictionary['fr']) {
+  it('should load "fr" dictionary', function () {
+    // test French dictionary
+  });
+}
+```

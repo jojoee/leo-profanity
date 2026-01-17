@@ -1,0 +1,46 @@
+---
+description: Leo-Profanity project overview and structure
+globs: **/*
+alwaysApply: true
+---
+
+# Leo-Profanity Project
+
+Profanity filter library based on Shutterstock dictionary. Supports multiple languages (English, French, Russian).
+
+## Project Structure
+
+- `src/index.js` - Main source code with LeoProfanity object
+- `test/index.spec.js` - Test file using Mocha/Chai
+- `dictionary/default.json` - Default English profanity word list
+- `example/` - Usage examples (CommonJS, ES6, browser)
+- `doc/` - Generated JSDoc documentation
+
+## Key Information
+
+- Package name: `leo-profanity`
+- Main branch: `master`
+- License: MIT
+- Repository: https://github.com/jojoee/leo-profanity
+
+## Supported Languages
+
+- English (en) - built-in via `dictionary/default.json`
+- French (fr) - optional dependency `french-badwords-list`
+- Russian (ru) - optional dependency `russian-bad-words`
+
+## Core API Methods
+
+Public methods on LeoProfanity object:
+- `list()` - Get current word list
+- `check(str)` - Check if string contains profanity
+- `clean(str, replaceKey, nbLetters)` - Replace profanity words
+- `badWordsUsed(str)` - Get list of bad words found
+- `add(data)` - Add words to list
+- `remove(data)` - Remove words from list
+- `reset()` - Reset to default English dictionary
+- `clearList()` - Clear all words
+- `getDictionary(name)` - Get dictionary by name
+- `loadDictionary(name)` - Load dictionary
+- `addDictionary(name, words)` - Create new dictionary
+- `removeDictionary(name)` - Remove dictionary

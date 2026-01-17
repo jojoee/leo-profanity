@@ -1,0 +1,89 @@
+---
+description: JavaScript code style conventions for leo-profanity
+globs: src/**/*.js
+alwaysApply: false
+---
+
+# Code Style Conventions
+
+## ES5 JavaScript Requirement
+
+This project uses ES5 syntax for compatibility with older Node.js versions.
+
+### Variable Declarations
+
+Use `var` instead of `let` or `const`:
+
+```javascript
+// Correct
+var filter = require('leo-profanity');
+var i = 0;
+var result = '';
+
+// Incorrect - do not use
+let filter = require('leo-profanity');
+const i = 0;
+```
+
+The file has `/* eslint no-var: 0 */` at the top to allow this.
+
+## JSDoc Comments
+
+All public methods must have JSDoc comments with:
+- Description
+- `@example` showing usage
+- `@public` or `@private` visibility
+- `@param` for parameters with types
+- `@returns` for return values
+
+Example:
+
+```javascript
+/**
+ * Check the string contain profanity words or not
+ *
+ * @example
+ * // output: true
+ * filter.check('I have boob');
+ *
+ * @public
+ * @param {string} str
+ * @returns {boolean}
+ */
+check: function (str) {
+  // implementation
+}
+```
+
+## Method Chaining
+
+Methods that modify state should return `this` to enable chaining:
+
+```javascript
+add: function (data) {
+  // ... implementation
+  return this;
+},
+```
+
+## Private vs Public Methods
+
+- Private methods: Use `@private` JSDoc tag
+- Public methods: Use `@public` JSDoc tag
+- Private helper methods: `removeWord`, `addWord`, `getReplacementWord`, `sanitize`, `proceed`
+- Public API methods: `list`, `check`, `clean`, `add`, `remove`, `reset`, etc.
+
+## Object Structure
+
+The main export is a single object `LeoProfanity` with all methods:
+
+```javascript
+var LeoProfanity = {
+  wordDictionary: {},
+  words: [],
+  
+  // methods...
+};
+
+module.exports = LeoProfanity;
+```
