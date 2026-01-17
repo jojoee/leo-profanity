@@ -11,6 +11,7 @@ coverage
 .nyc_output
 .scannerwork
 reports
+doc
 
 # Backup
 bk*
