@@ -207,13 +207,6 @@ echo $STRYKER_DASHBOARD_API_KEY
 npx stryker run
 ```
 
-## Other languages
-- [x] Javascript on [npmjs.com/package/leo-profanity](https://www.npmjs.com/package/leo-profanity)
-- [x] PHP on [packagist.org/packages/jojoee/leo-profanity](https://packagist.org/packages/jojoee/leo-profanity)
-- [x] Python on [pypi.org/project/leoprofanity](https://pypi.org/project/leoprofanity)
-- [ ] Java on [Maven](https://maven.apache.org/)
-- [ ] Wordpress on [wordpress.org](https://wordpress.org/)
-
 ## Reference
 - Inspired by [jwils0n/profanity-filter](https://github.com/jwils0n/profanity-filter)
 - Algorithm / Discussion
@@ -233,6 +226,3 @@ npx stryker run
   - [Shutterstock](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words)
   - [MauriceButler/badwords](https://github.com/MauriceButler/badwords)
   - http://www.cs.cmu.edu/~biglou/resources/bad-words.txt
-- Tool
-  - [RegExr](http://regexr.com/)
-
