@@ -11,8 +11,8 @@
     "test": "test"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^8.7.1",
-    "@stryker-mutator/mocha-runner": "^8.7.1",
+    "@stryker-mutator/core": "^9.4.0",
+    "@stryker-mutator/mocha-runner": "^9.4.0",
     "chai": "4.2.0",
     "codecov": "3.8.3",
     "mocha": "^11.1.0",
